@@ -1,5 +1,3 @@
-Here you can say lots of fun things about your site.
-
-Maybe say a some things about yourself.
-
-Or maybe what you plan to blog about.
+- M.Sc Graduated from Sharif University of Technology
+- AI & Process Engineer at Fanavaran_Sharif Company
+- Ranked 9nd in the 25th National Student's Olympiad in Chemical Engineering
