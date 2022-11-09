@@ -1,16 +1,14 @@
-title: "My Blogs Name"
-author: "Default Author Name"
-description: "Some short description of your blog can go here." # This will show up in places like twitter, linkedin, etc, if you share your sites url as a post.
+title: "Ali Aghadadashi - Personal Blog"
+author: "Ali Aghadadashi"
+description: "M.Sc Graduated from Sharif University of Technology / AI & Process Engineer at Fanavaran_Sharif Company" # This will show up in places like twitter, linkedin, etc, if you share your sites url as a post.
 
 # Email / Social media user names used by the minima theme:
 # All of these are optional and can be removed or commented out
-email: "example@mail.com"
-twitter_username: "twitteruser"
-github_username: "githubuser"
-linkedin_username: "linkedinuser"
-#facebook_username: username
-#flickr_username: username
-#instagram_username: username
+email: "aliagadadashi@gmail.com"
+twitter_username: "ali_aghadadashi"
+github_username: "aliagh11"
+linkedin_username: "Ali Aghadadashi"
+instagram_username: ali.aghadadashi
 #pinterest_username: username
 #youtube_username: username
 #googleplus_username: +username
@@ -18,7 +16,7 @@ linkedin_username: "linkedinuser"
 #########################################################################################
 ######### Nothing below needs to be changed (unless you know what you're doing) #########
 #########################################################################################
-theme: "Hacker"
+remote_theme: "hacker"
 
 rss: rss
 
