@@ -1,0 +1,2 @@
+- M.Sc at Sharif University of Technology / GPA = 17.59 (out of 20.00) / 2019 - 2021
+- B.Sc at Azarbaijan Shahid Madani University / GPA = 17.25 (out of 20.00) / 2015 - 2019
