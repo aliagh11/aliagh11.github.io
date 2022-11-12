@@ -1,3 +1,3 @@
 - M.Sc Graduated from Sharif University of Technology
 - AI & Process Engineer at Fanavaran_Sharif Company
-- Ranked 9nd in the 25th National Student's Olympiad in Chemical Engineering
+- Ranked 9th in the 25th National Student's Olympiad in Chemical Engineering
