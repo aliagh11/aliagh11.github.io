@@ -8,361 +8,230 @@
   <meta name="color-scheme" content="light dark" />
   <style>
     :root {
-      --bg: #0b0c10;
-      --panel: #121317;
-      --text: #eaeaea;
-      --muted: #a4a7ae;
-      --brand: #4f8cff;
-      --accent: #23d18b;
-      --border: #22242a;
-      --shadow: 0 10px 30px rgba(0,0,0,.25);
-    }
-    @media (prefers-color-scheme: light) {
-      :root {
-        --bg: #f7f8fa;
-        --panel: #ffffff;
-        --text: #222;
-        --muted: #50535b;
-        --brand: #265cf0;
-        --accent: #0aa36c;
-        --border: #e9eaee;
-      }
+      --bg: #f4f6fb;
+      --panel: rgba(255, 255, 255, 0.85);
+      --text: #222;
+      --muted: #555;
+      --brand: #3b6ff5;
+      --accent: #1cbf83;
+      --border: rgba(0,0,0,0.1);
+      --shadow: 0 4px 20px rgba(0,0,0,0.1);
     }
 
-    * { box-sizing: border-box; }
-    html, body { margin: 0; padding: 0; }
-    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; }
+    body {
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: var(--bg) url('7baf2179-40bd-4bb6-ac53-23167b9d7c54.png') no-repeat center center fixed;
+      background-size: cover;
+      background-blend-mode: lighten;
+      color: var(--text);
+      line-height: 1.6;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.65);
+      z-index: -1;
+    }
 
     .wrap { max-width: 1040px; margin: 0 auto; padding: 24px; }
     header.hero { display: grid; gap: 18px; padding: 48px 0 16px; }
-    .chip { display: inline-flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 999px; border: 1px solid var(--border); background: linear-gradient(180deg, var(--panel), transparent); color: var(--muted); font-size: 12px; text-transform: uppercase; letter-spacing: .08em; }
     .name { font-size: clamp(28px, 4.5vw, 48px); line-height: 1.1; margin: 0; }
-    .subtitle { margin: 0; color: var(--muted); font-size: clamp(14px, 2.2vw, 18px); }
+    .subtitle { margin: 0; color: var(--muted); font-size: clamp(14px, 2.2vw, 18px); white-space: pre-line; }
     .quick { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
-    .quick a { text-decoration: none; color: var(--text); border: 1px solid var(--border); padding: 8px 12px; border-radius: 10px; background: var(--panel); box-shadow: var(--shadow); transition: transform .2s ease;
-    }
+    .quick a { text-decoration: none; color: var(--text); border: 1px solid var(--border); padding: 8px 12px; border-radius: 10px; background: var(--panel); box-shadow: var(--shadow); transition: transform .2s ease; display: flex; align-items: center; gap: 8px; }
     .quick a:hover { transform: translateY(-2px); }
     .quick a .meta { display:block; font-size: 11px; color: var(--muted); }
+    .quick a img.icon { height: 20px; width: 20px; vertical-align: middle; }
 
-    nav.toc { position: sticky; top: 0; z-index: 20; backdrop-filter: blur(8px); background: color-mix(in oklab, var(--bg), transparent 60%); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
-    nav.toc .wrap { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; padding-top: 10px; padding-bottom: 10px; }
-    nav.toc a { color: var(--muted); text-decoration: none; padding: 8px 10px; border-radius: 8px; }
-    nav.toc a:hover { color: var(--text); background: var(--panel); }
+    .block { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin-top: 16px; box-shadow: var(--shadow); cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease; }
+    .block:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 12px 24px rgba(0,0,0,0.15); }
+    .block h3 { margin: 0 0 8px; font-size: 20px; }
+    .block p { font-size: 14px; color: var(--muted); margin: 0; }
 
-    section { padding: 32px 0; }
-    h2 { font-size: clamp(22px, 3.5vw, 28px); margin: 0 0 10px; }
-    p { margin: 8px 0 0; }
+    .tab-content { display: none; background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-top: 12px; animation: fadeIn 0.6s ease-in-out; }
+    .tab-content.active { display: block; }
 
-    .grid { display: grid; gap: 16px; }
-    .cols-2 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
-    @media (min-width: 880px) { .cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+    .tab-buttons { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 16px; }
+    .tab-buttons button { background: var(--panel); color: var(--text); border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; cursor: pointer; transition: all 0.3s ease; }
+    .tab-buttons button:hover { background: var(--brand); color: #fff; }
+    .tab-buttons button.active { background: var(--brand); color: #fff; }
 
-    .card { background: var(--panel); border: 1px solid var(--border); border-radius: 16px; padding: 18px; box-shadow: var(--shadow); }
-    .card h3 { margin: 0 0 6px; font-size: 18px; }
-    .muted { color: var(--muted); font-size: 14px; }
-    .list { list-style: none; padding: 0; margin: 0; }
-    .list li { padding: 10px 0; border-bottom: 1px dashed var(--border); }
-    .list li:last-child { border-bottom: none; }
+    /* Industrial grid */
+    .grid-2x2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+    @media (max-width: 740px) { .grid-2x2 { grid-template-columns: 1fr; } }
+    .prod-card { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); display: flex; flex-direction: column; transform: translateZ(0); transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
+    .prod-card:hover { transform: translateY(-6px) scale(1.01); box-shadow: 0 16px 40px rgba(0,0,0,.18); border-color: rgba(0,0,0,0.12); }
+    .prod-card .media { height: 220px; display: flex; align-items: center; justify-content: center; background: #fff; position: relative; }
+    @media (min-width: 1024px) { .prod-card .media { height: 260px; } }
+    .prod-card img { max-width: 100%; max-height: 100%; width: auto; height: auto; display: block; }
+    .prod-body { padding: 10px 12px; display: grid; gap: 6px; }
+    .prod-title { font-weight: 600; }
+    .prod-desc { color: var(--muted); font-size: 14px; }
+    .prod-actions { margin-top: 2px; }
+    .prod-actions a { text-decoration: none; color: var(--brand); font-weight: 600; }
 
-    .badge { display: inline-block; padding: 6px 10px; border-radius: 999px; border: 1px solid var(--border); background: var(--panel); margin: 6px 6px 0 0; font-size: 12px; color: var(--muted); }
-    a { color: var(--brand); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-
-    .pub { display: grid; gap: 6px; }
-    .pub .venue { font-size: 13px; color: var(--muted); }
-
-    details { border: 1px solid var(--border); border-radius: 12px; padding: 12px 14px; background: var(--panel); }
-    details summary { cursor: pointer; user-select: none; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
     footer { padding: 32px 0 40px; color: var(--muted); text-align: center; font-size: 14px; }
-    .small { font-size: 12px; color: var(--muted); }
-    .row { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; justify-content: space-between; }
 
-    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 10px 12px; border-radius: 10px; border: 1px solid var(--border); background: var(--panel); color: var(--text); text-decoration: none; box-shadow: var(--shadow); }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 5px; padding: 10px 16px; border-radius: 10px; border: 1px solid var(--border); background: var(--panel); color: var(--text); text-decoration: none; box-shadow: var(--shadow); font-size: 15px; font-weight: 500; line-height: 1; vertical-align: middle; }
     .btn:hover { transform: translateY(-2px); }
   </style>
 </head>
 <body>
   <header class="hero wrap">
-    <span class="chip">Academic • Engineering • R&D</span>
     <h1 class="name">Ali Aghadadashi</h1>
-    <p class="subtitle">M.Sc. in Energy Systems Engineering — Focused on energy systems modeling, AI/optimization, and renewable energies.</p>
+    <p class="subtitle">M.Sc in Energy Systems Engineering - Sharif University of Technology
+      
+Fields of Interest
+  - Energy Systems Modeling
+  - Artificial Intelligence / Optimization
+  - Stochastic Programming / Uncertainty Assessment
+  - Renewable Energies</p>
 
     <div class="quick">
       <a href="mailto:aliagadadashi@gmail.com" aria-label="Email Ali">
         <strong>aliagadadashi@gmail.com</strong>
         <span class="meta">Email</span>
       </a>
-      <a href="#" rel="me" aria-label="Google Scholar profile"><strong>Google Scholar</strong><span class="meta">Add your link</span></a>
-      <a href="#" rel="me" aria-label="LinkedIn profile"><strong>LinkedIn</strong><span class="meta">Add your link</span></a>
-      <a href="#" rel="me" aria-label="ORCID profile"><strong>ORCID</strong><span class="meta">Add your link</span></a>
-      <a href="#" rel="me" aria-label="SciProfile profile"><strong>SciProfile</strong><span class="meta">Add your link</span></a>
-      <a class="btn" href="./CV%20-%20Ali%20Aghadadashi.pdf" download>⬇️ Download CV (PDF)</a>
+      <a href="https://scholar.google.com/citations?user=9zr1k8UAAAAJ&hl=en&oi=ao" rel="me">
+        <img src="GS.png" alt="Google Scholar" class="icon">
+        <strong>Google Scholar</strong>
+        <span class="meta">View Publications</span>
+      </a>
+      <a href="https://www.linkedin.com/in/ali-aghadadashi-1402241b9/" rel="me">
+        <img src="linkedin4.png" alt="LinkedIn" class="icon">
+        <strong>LinkedIn</strong>
+        <span class="meta">View Profile</span>
+      </a>
+      <a class="btn" href="https://drive.google.com/file/d/140lgJX1Gr4gt2ZfRKQl_jgO8XGs2rkmp/view?usp=sharing" target="_blank"><br>View / Download CV (PDF)</a>
+    </div>
+
+    <div class="block" onclick="openTab('academic')">
+      <h3>Academic Background</h3>
+      <p>M.Sc in Energy Systems Engineering - Sharif University of Technology <br><br>
+         Click to access: Publications, Projects, Research Experiences, Awards and Honors, Teaching Experiences, Graduate Courses, Software Skills</p>
+    </div>
+
+    <div class="block" onclick="openTab('industrial')">
+      <h3>Industrial Working Experiences</h3>
+      <p>In 3 years of managing the R&D team at SuperFrost Co., I have developed four cutting-edge commercial freezers and refrigerators, as well as one Python-based GUI to optimize the thermodynamic cycle of refrigeration systems.</p>
+    </div>
+
+    <!-- Academic Section Tabs -->
+    <div id="academic" class="tab-content">
+      <div class="tab-buttons">
+        <button class="active" onclick="switchSubTab(event, 'publications')">Publications</button>
+        <button onclick="switchSubTab(event, 'projects')">Projects</button>
+        <button onclick="switchSubTab(event, 'research')">Research Experiences</button>
+        <button onclick="switchSubTab(event, 'awards')">Awards & Honors</button>
+        <button onclick="switchSubTab(event, 'teaching')">Teaching Experiences</button>
+        <button onclick="switchSubTab(event, 'courses')">Graduate Courses</button>
+        <button onclick="switchSubTab(event, 'skills')">Software Skills</button>
+      </div>
+
+      <div id="publications" class="sub-tab active">
+        <ol>
+          <li>
+            <strong>Aghadadashi, A.</strong>, Avami, A. (2024). <em>Water–land–food–human health nexus in bioenergy supply chain optimization under climatic constraints</em>. <em>Science of The Total Environment</em>, 957, 177572. 
+            <a href="https://doi.org/10.1016/j.scitotenv.2024.177572" target="_blank" rel="noopener" style="color: var(--brand)">https://doi.org/10.1016/j.scitotenv.2024.177572</a>
+          </li><br>
+          <li>
+            Danook, S. H., AL-bonsrulah, H. A., Raja, V., Kolivandi, M., <strong>Aghadadashi, A.</strong>, Al‑Bahrani, M. (2023). <em>Investigations of performance improvements on the evacuated tube solar collector with and without the incorporation of preheater through various engineering approaches</em>. <em>IET Renewable Power Generation</em>, 17(3), 563–578. 
+            <a href="https://doi.org/10.1049/rpg2.12615" target="_blank" rel="noopener" style="color: var(--brand)">https://doi.org/10.1049/rpg2.12615</a>
+          </li><br>
+          <li>
+            Mirzaee, S., <strong>Aghadadashi, A.</strong>, Balforoush, S., Shahbazi, A. (2021). <em>Future research of investment in biofuels with a scenario approach</em>. <em>The 5th International Congress of Agricultural Development, Natural Resources, Environment and Tourism of Iran</em>. (In Persian).
+          </li>
+        </ol>
+      </div>
+      <div id="projects" class="sub-tab" style="display:none">
+        <p>Details of research and academic projects conducted during postgraduate studies.</p>
+      </div>
+      <div id="research" class="sub-tab" style="display:none">
+        <p>Research topics, methodologies, collaborations, and outcomes.</p>
+      </div>
+      <div id="awards" class="sub-tab" style="display:none">
+        <p>Academic awards, honors, and recognitions achieved during education and research career.</p>
+      </div>
+      <div id="teaching" class="sub-tab" style="display:none">
+        <p>Courses taught and teaching assistant experience.</p>
+      </div>
+      <div id="courses" class="sub-tab" style="display:none">
+        <p>Graduate-level coursework and training relevant to energy systems and optimization.</p>
+      </div>
+      <div id="skills" class="sub-tab" style="display:none">
+        <p>Software and programming tools used in academic and research activities (MATLAB, GAMS, Python, Aspen Plus, etc.).</p>
+      </div>
+    </div>
+
+    <!-- Industrial Section Grid (2x2) -->
+    <div id="industrial" class="tab-content">
+      <div class="grid-2x2">
+        <div class="prod-card">
+          <div class="media"><img src="SF2150T-DM.jpg" alt="-18°C Upright Commercial Freezer (SF2150T)"></div>
+          <div class="prod-body">
+            <div class="prod-title">-18°C Upright Commercial Freezer (SF2150T)</div>
+            <div class="prod-desc">High-capacity upright design for reliable deep-freezing in commercial kitchens.</div>
+            <div class="prod-actions"><a href="https://drive.google.com/file/d/1vAS-aH8mmbiNNCbYuUNVtc72fT7IP3uR/view?usp=drive_link" target="_blank" rel="noopener">Read More →</a></div>
+          </div>
+        </div>
+        <div class="prod-card">
+          <div class="media"><img src="Polar-DM.jpg" alt="-22°C Counter Freezer (SCF2150P)"></div>
+          <div class="prod-body">
+            <div class="prod-title">-22°C Counter Freezer — 2 & 3 Doors (SCF2150P)</div>
+            <div class="prod-desc">Low-profile counter freezer with multi-door access for efficient line operations.</div>
+            <div class="prod-actions"><a href="https://drive.google.com/file/d/1p3GG8UlfA1MbTQPW6ZweG5ZDHCK38HCA/view?usp=drive_link" target="_blank" rel="noopener">Read More →</a></div>
+          </div>
+        </div>
+        <div class="prod-card">
+          <div class="media"><img src="Cold Plate - DM.jpg" alt="+3°C Cold Plates"></div>
+          <div class="prod-body">
+            <div class="prod-title">+3°C Cold Plates</div>
+            <div class="prod-desc">Chilled surface solution for prep/service lines with uniform temperature control.</div>
+            <div class="prod-actions"><a href="https://drive.google.com/file/d/1YqSozqKp1AinCFwWpG4MpmMCMwdZrx4n/view?usp=drive_link" target="_blank" rel="noopener">Read More →</a></div>
+          </div>
+        </div>
+        <div class="prod-card">
+          <div class="media"><img src="EL - DM.jpg" alt="+5°C Grill Refrigerator (4 & 6 drawers)"></div>
+          <div class="prod-body">
+            <div class="prod-title">+5°C Grill Refrigerator — 4 & 6 Drawers</div>
+            <div class="prod-desc">Heavy-duty refrigerated base for grill stations with flexible drawer options.</div>
+            <div class="prod-actions"><a href="https://drive.google.com/file/d/1f0iVkBpMN1MAQezaNpSa9oVKqjpfZCxm/view?usp=drive_link" target="_blank" rel="noopener">Read More →</a></div>
+          </div>
+        </div>
+      </div>
     </div>
   </header>
-
-  <nav class="toc">
-    <div class="wrap">
-      <div class="row">
-        <div>
-          <a href="#about">About</a>
-          <a href="#interests">Research Interests</a>
-          <a href="#publications">Publications</a>
-          <a href="#projects">Projects</a>
-          <a href="#experience">Experience</a>
-          <a href="#skills">Skills</a>
-          <a href="#education">Education</a>
-          <a href="#teaching">Teaching</a>
-          <a href="#awards">Awards</a>
-        </div>
-        <div>
-          <a href="#languages">Languages</a>
-        </div>
-      </div>
-    </div>
-  </nav>
-
-  <main class="wrap">
-    <section id="about">
-      <h2>About</h2>
-      <div class="grid cols-2">
-        <div class="card">
-          <p>
-            Researcher and engineer working at the intersection of <strong>energy systems</strong> and <strong>artificial intelligence</strong>,
-            with experience across academic and industrial R&amp;D.
-            I build models and software for optimization under uncertainty, thermodynamic analysis, and product development in refrigeration systems.
-          </p>
-          <p class="muted small">Open to research collaborations and R&amp;D roles in energy systems, optimization, and ML for engineering.</p>
-        </div>
-        <div class="card">
-          <h3>At a Glance</h3>
-          <ul class="list">
-            <li>📍 Based in Iran • Working with global teams</li>
-            <li>🎓 M.Sc. — Sharif University of Technology (2022)</li>
-            <li>🧪 R&amp;D Manager @ SuperFrost (2024–present)</li>
-            <li>🗣 TOEFL iBT: 100/120 (Jul 23, 2025)</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <section id="interests">
-      <h2>Research Interests</h2>
-      <div>
-        <span class="badge">Energy Systems Modeling</span>
-        <span class="badge">AI &amp; Optimization</span>
-        <span class="badge">Stochastic Programming</span>
-        <span class="badge">Uncertainty Assessment</span>
-        <span class="badge">Renewable Energies</span>
-      </div>
-    </section>
-
-    <section id="publications">
-      <h2>Publications</h2>
-      <div class="grid">
-        <div class="card pub">
-          <h3>Water-land-food-human health nexus in bioenergy supply chain optimization under climatic constraints</h3>
-          <div class="venue">Science of The Total Environment, 957, 177572 (2024)</div>
-          <div>
-            Aghadadashi, A.; Avami, A. — <a href="https://doi.org/10.1016/j.scitotenv.2024.177572" target="_blank" rel="noopener">https://doi.org/10.1016/j.scitotenv.2024.177572</a>
-          </div>
-        </div>
-        <div class="card pub">
-          <h3>Investigations of performance improvements on the evacuated tube solar collector with and without the incorporation of preheater…</h3>
-          <div class="venue">IET Renewable Power Generation, 17(3), 563–578 (2023)</div>
-          <div>
-            Danook, S.H.; AL-bonsrulah, H.A.; Raja, V.; Kolivandi, M.; <strong>Aghadadashi, A.</strong>; Al‑Bahrani, M. —
-            <a href="https://doi.org/10.1049/rpg2.12615" target="_blank" rel="noopener">https://doi.org/10.1049/rpg2.12615</a>
-          </div>
-        </div>
-        <div class="card pub">
-          <h3>Future research of investment in biofuels with a scenario approach</h3>
-          <div class="venue">5th Intl. Congress of Agricultural Development, Natural Resources, Environment and Tourism of Iran (2021) — In Persian</div>
-        </div>
-      </div>
-    </section>
-
-    <section id="projects">
-      <h2>Selected Projects</h2>
-      <div class="grid cols-2">
-        <div class="card">
-          <h3>MATLAB–CPLEX Optimization Framework</h3>
-          <p class="muted">Sharif University of Technology • Sep 2020 – Jan 2021</p>
-          <ul class="list">
-            <li>End-to-end MATLAB–CPLEX code for objective bounds, sensitivity analysis, and dual problem solving.</li>
-          </ul>
-        </div>
-        <div class="card">
-          <h3>Python GUI for Thermodynamic Cycle Analysis (SCP)</h3>
-          <p class="muted">Fanavaran Sharif × SuperFrost • Nov 2022 – Jun 2023</p>
-          <ul class="list">
-            <li>Built Python-based GUI integrated into SuperFrost Cooling Pack for freezer analysis/testing.</li>
-          </ul>
-        </div>
-        <div class="card">
-          <h3>Industrial R&amp;D — Refrigeration Products</h3>
-          <p class="muted">SuperFrost • Jan 2022 – Present</p>
-          <ul class="list">
-            <li>−18°C upright freezer (hundreds of units designed &amp; manufactured).</li>
-            <li>−22°C counter freezer (sizes 2150/2000/1600/1500 mm; 55 units to date).</li>
-            <li>+3°C cold plate (2000/1600; 15 units to date).</li>
-            <li>+5°C grill refrigerator (2000/1200; 10 units, 4 &amp; 6-drawer).</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <section id="experience">
-      <h2>Experience</h2>
-      <div class="grid cols-2">
-        <div class="card">
-          <h3>R&amp;D Manager</h3>
-          <p class="muted">SuperFrost — Apr 2024 – Present</p>
-          <p>3D modeling, industrial drawing, refrigeration engineering, thermodynamical analysis.</p>
-        </div>
-        <div class="card">
-          <h3>R&amp;D Engineer</h3>
-          <p class="muted">SuperFrost — Jan 2022 – Apr 2024</p>
-          <p>3D modeling and industrial drawing across multiple product lines.</p>
-        </div>
-        <div class="card">
-          <h3>Junior Researcher</h3>
-          <p class="muted">Fanavaran Sharif — Nov 2022 – Aug 2023</p>
-          <p>Artificial Intelligence, IoT, and software development for engineering applications.</p>
-        </div>
-        <div class="card">
-          <h3>Research Assistant</h3>
-          <p class="muted">Energy &amp; Environment Research Group, SUT — Sep 2020 – Sep 2022</p>
-          <p>Optimization and modeling in bioenergy supply chains under climatic constraints.</p>
-        </div>
-        <div class="card">
-          <h3>Research Assistant</h3>
-          <p class="muted">Microbiology Lab, ASMU — Sep 2016 – Dec 2018</p>
-          <p>Experimental work under the supervision of Prof. Maryam Hosseini.</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="skills">
-      <h2>Skills</h2>
-      <div class="grid cols-2">
-        <div class="card">
-          <h3>Programming &amp; ML</h3>
-          <p>
-            <span class="badge">Python</span>
-            <span class="badge">GAMS</span>
-            <span class="badge">TensorFlow</span>
-            <span class="badge">PyTorch</span>
-            <span class="badge">scikit‑learn</span>
-            <span class="badge">Statistical Analysis</span>
-          </p>
-        </div>
-        <div class="card">
-          <h3>Engineering &amp; Tools</h3>
-          <p>
-            <span class="badge">MATLAB/Simulink</span>
-            <span class="badge">ASPEN Plus</span>
-            <span class="badge">LaTeX</span>
-            <span class="badge">Microsoft Office</span>
-          </p>
-        </div>
-      </div>
-      <details style="margin-top:12px"><summary>Graduate Coursework</summary>
-        <ul class="list">
-          <li>Advanced Mathematical Programming (Operations Research)</li>
-          <li>Energy Modeling</li>
-          <li>Optimization of Energy Flow</li>
-          <li>Energy and Environment</li>
-          <li>Principles of Economics</li>
-          <li>Machine Learning (Stanford, Andrew Ng)</li>
-          <li>Deep Learning (DeepLearning.AI, Andrew Ng)</li>
-        </ul>
-      </details>
-    </section>
-
-    <section id="education">
-      <h2>Education</h2>
-      <div class="grid cols-2">
-        <div class="card">
-          <h3>M.Sc. Energy Systems Engineering (Energy &amp; Environment)</h3>
-          <p class="muted">Sharif University of Technology — Sep 2020 – Sep 2022 • CGPA: 17.59/20.0</p>
-          <p>Thesis: <em>Biofuels Supply Chain Modeling and Optimization Considering Climatic Constraints</em> — Supervisor: Prof. Akram Avami</p>
-        </div>
-        <div class="card">
-          <h3>B.Sc. Chemical Engineering</h3>
-          <p class="muted">Azarbaijan Shahid Madani University — Sep 2016 – Sep 2020 • CGPA: 17.25/20.0</p>
-          <p>Supervisor: Prof. Maryam Hosseini</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="teaching">
-      <h2>Teaching</h2>
-      <div class="grid cols-2">
-        <div class="card">
-          <h3>Teaching Assistant — Water &amp; Energy Nexus</h3>
-          <p class="muted">Sharif University of Technology — Feb 2022 – Jul 2022; Sep 2022 – Feb 2023</p>
-          <p>Department of Energy Engineering — Prof. Akram Avami</p>
-        </div>
-        <div class="card">
-          <h3>Teaching Assistant — Energy &amp; Climate Change</h3>
-          <p class="muted">Sharif University of Technology — Sep 2022 – Feb 2023</p>
-          <p>Department of Energy Engineering — Prof. Hossein Khajehpour</p>
-        </div>
-        <div class="card">
-          <h3>Teaching Assistant — Heat Transfer</h3>
-          <p class="muted">Azarbaijan Shahid Madani University — Feb 2018 – Jul 2018</p>
-          <p>Chemical Engineering Department — Prof. Maryam Hosseini</p>
-        </div>
-      </div>
-    </section>
-
-    <section id="awards">
-      <h2>Awards &amp; Honors</h2>
-      <ul class="list card">
-        <li>Ranked 9<sup>th</sup> — 25th Nationwide Scientific Student Olympiad in Chemical Engineering (Iran).</li>
-        <li>Ranked 104<sup>th</sup> — Nationwide M.Sc. Entrance Exam in Chemical Engineering (6,000+ participants).</li>
-        <li>Ranked 2<sup>nd</sup> — B.Sc. class (among 45 students) with CGPA 17.25/20.0.</li>
-      </ul>
-    </section>
-
-    <section id="languages">
-      <h2>Languages</h2>
-      <div class="card">
-        <p>
-          <span class="badge">English — Fluent</span>
-          <span class="badge">Azerbaijani — Mother Tongue</span>
-          <span class="badge">Persian — Native</span>
-          <span class="badge">Turkish — Proficient</span>
-        </p>
-      </div>
-    </section>
-
-    <section id="references">
-      <h2>References</h2>
-      <details>
-        <summary>Available on request (click to view)</summary>
-        <ul class="list" style="margin-top:8px">
-          <li><strong>Akram Avami</strong> — Associate Professor, Dept. of Energy Engineering, Sharif University of Technology — <a href="mailto:avami@sharif.edu">avami@sharif.edu</a></li>
-          <li><strong>Maryam Hosseini</strong> — Senior Fermentation Scientist, Cargill R&amp;D Center (Belgium) — <a href="mailto:maryam%20hosseini@cargill.com">maryam hosseini@cargill.com</a></li>
-          <li><strong>Farzad Motevalli</strong> — Factory Manager, SuperFrost Co. — <a href="mailto:fmo@superfrost.com">fmo@superfrost.com</a></li>
-        </ul>
-      </details>
-    </section>
-
-    <section id="contact">
-      <h2>Get in touch</h2>
-      <div class="card">
-        <p>For collaborations or opportunities, email <a href="mailto:aliagadadashi@gmail.com">aliagadadashi@gmail.com</a>.</p>
-      </div>
-    </section>
-  </main>
 
   <footer>
     <div class="wrap">© <span id="year"></span> Ali Aghadadashi. All rights reserved.</div>
   </footer>
 
   <script>
+    function openTab(id) {
+      const tab = document.getElementById(id);
+      document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
+      tab.classList.add('active');
+      tab.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
+
+    function switchSubTab(event, id) {
+      const container = event.target.closest('.tab-content');
+      container.querySelectorAll('.sub-tab').forEach(st => st.style.display = 'none');
+      container.querySelector(`#${id}`).style.display = 'block';
+      container.querySelectorAll('.tab-buttons button').forEach(btn => btn.classList.remove('active'));
+      event.target.classList.add('active');
+    }
+
     document.getElementById('year').textContent = new Date().getFullYear();
   </script>
 </body>
