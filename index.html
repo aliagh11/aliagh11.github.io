@@ -1,238 +1,225 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Ali Aghadadashi — Portfolio & CV</title>
-  <meta name="description" content="Ali Aghadadashi — Energy Systems Engineering, AI/Optimization, and Renewable Energies. Publications, projects, and experience." />
-  <meta name="color-scheme" content="light dark" />
-  <style>
-    :root {
-      --bg: #f4f6fb;
-      --panel: rgba(255, 255, 255, 0.85);
-      --text: #222;
-      --muted: #555;
-      --brand: #3b6ff5;
-      --accent: #1cbf83;
-      --border: rgba(0,0,0,0.1);
-      --shadow: 0 4px 20px rgba(0,0,0,0.1);
-    }
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Ali Aghadadashi — Home</title>
+<meta name="description" content="Portfolio homepage for Ali Aghadadashi" />
 
-    body {
-      font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background: var(--bg) url('7baf2179-40bd-4bb6-ac53-23167b9d7c54.png') no-repeat center center fixed;
-      background-size: cover;
-      background-blend-mode: lighten;
-      color: var(--text);
-      line-height: 1.6;
-      position: relative;
-    }
+<style>
+  :root{
+    --bg:#f6f7fb;
+    --ink:#1e1f23;
+    --muted:#667085;
+    --panel:#ffffff;
+    --brand:#3b6ff5;
+    --nav:#2c2c2c;
+    --border:#e5e7eb;
+    --shadow:0 10px 30px rgba(0,0,0,.10);
+    --radius:16px;
+  }
 
-    body::before {
-      content: "";
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(255, 255, 255, 0.65);
-      z-index: -1;
-    }
+  *{box-sizing:border-box}
+  html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;line-height:1.55}
 
-    .wrap { max-width: 1040px; margin: 0 auto; padding: 24px; }
-    header.hero { display: grid; gap: 18px; padding: 48px 0 16px; }
-    .name { font-size: clamp(28px, 4.5vw, 48px); line-height: 1.1; margin: 0; }
-    .subtitle { margin: 0; color: var(--muted); font-size: clamp(14px, 2.2vw, 18px); white-space: pre-line; }
-    .quick { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px; }
-    .quick a { text-decoration: none; color: var(--text); border: 1px solid var(--border); padding: 8px 12px; border-radius: 10px; background: var(--panel); box-shadow: var(--shadow); transition: transform .2s ease; display: flex; align-items: center; gap: 8px; }
-    .quick a:hover { transform: translateY(-2px); }
-    .quick a .meta { display:block; font-size: 11px; color: var(--muted); }
-    .quick a img.icon { height: 20px; width: 20px; vertical-align: middle; }
+  /* Top Nav */
+  .nav{position:sticky;top:0;z-index:5;background:var(--nav);color:#fff;border-bottom:1px solid rgba(255,255,255,.08)}
+  .nav .wrap{max-width:1180px;margin:0 auto;padding:14px 22px;display:flex;align-items:center;gap:24px}
+  .brand{display:flex;align-items:center;gap:10px}
+  .brand .logo{width:28px;height:28px;border-radius:6px;background:#fff1;border:1px solid #fff2}
+  .brand span{font-weight:700;letter-spacing:.2px}
+  .menu{margin-left:auto;display:flex;gap:24px;flex-wrap:wrap}
+  .menu a{color:#fff;text-decoration:none;opacity:.9}
+  .menu a:hover{opacity:1;text-decoration:underline}
 
-    .block { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 16px; margin-top: 16px; box-shadow: var(--shadow); cursor: pointer; transition: transform 0.3s ease, box-shadow 0.3s ease; }
-    .block:hover { transform: translateY(-4px) scale(1.02); box-shadow: 0 12px 24px rgba(0,0,0,0.15); }
-    .block h3 { margin: 0 0 8px; font-size: 20px; }
-    .block p { font-size: 14px; color: var(--muted); margin: 0; }
+  /* Layout */
+  .container{max-width:1180px;margin:0 auto;padding:32px 22px}
+  .grid{display:grid;gap:28px}
+  .grid-2{grid-template-columns:1.1fr .9fr}
+  @media (max-width: 900px){ .grid-2{grid-template-columns:1fr} }
 
-    .tab-content { display: none; background: var(--panel); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-top: 12px; animation: fadeIn 0.6s ease-in-out; }
-    .tab-content.active { display: block; }
+  /* Hero */
+  .card{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow)}
+  .hero{padding:28px}
+  .photo{
+    position:relative; background:#dff3f0; border-radius:12px;
+    min-height:360px; display:flex; align-items:center; justify-content:center;
+    border:1px solid #cde3df; box-shadow:0 18px 40px rgba(58,107,98,.12); overflow:hidden;
+  }
+  .photo span{color:#3a6b62;opacity:.8}
+  .title{font-size:clamp(26px, 3.6vw, 44px);margin:0 0 6px}
+  .subtitle{margin:0 0 18px;color:var(--muted);font-size:clamp(14px,2vw,18px)}
+  .meta-row{display:flex;gap:18px;flex-wrap:wrap;margin:14px 0 18px}
+  .meta-row b{color:#111}
+  .lead{margin:0;color:#374151}
 
-    .tab-buttons { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 16px; }
-    .tab-buttons button { background: var(--panel); color: var(--text); border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px; cursor: pointer; transition: all 0.3s ease; }
-    .tab-buttons button:hover { background: var(--brand); color: #fff; }
-    .tab-buttons button.active { background: var(--brand); color: #fff; }
+  /* Floating vertical track for badges */
+  .badge-track{
+    position:absolute; top:10px; left:10px; height:calc(100% - 20px); width:72px; pointer-events:none;
+  }
+  .badge{
+    position:absolute; left:0;
+    width:60px; height:60px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    text-decoration:none; pointer-events:auto;
+    filter: drop-shadow(0 10px 24px rgba(0,0,0,.25));
+    box-shadow:0 10px 24px rgba(0,0,0,.25), inset 0 0 0 1px rgba(255,255,255,.12);
+  }
+  .badge svg{width:28px; height:28px; fill:#fff}
+  .badge.gh{ background:#000; }
+  .badge.li{ background:#0A66C2; }
 
-    /* Industrial grid */
-    .grid-2x2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
-    @media (max-width: 740px) { .grid-2x2 { grid-template-columns: 1fr; } }
-    .prod-card { background: var(--panel); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); display: flex; flex-direction: column; transform: translateZ(0); transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease; }
-    .prod-card:hover { transform: translateY(-6px) scale(1.01); box-shadow: 0 16px 40px rgba(0,0,0,.18); border-color: rgba(0,0,0,0.12); }
-    .prod-card .media { height: 220px; display: flex; align-items: center; justify-content: center; background: #fff; position: relative; }
-    @media (min-width: 1024px) { .prod-card .media { height: 260px; } }
-    .prod-card img { max-width: 100%; max-height: 100%; width: auto; height: auto; display: block; }
-    .prod-body { padding: 10px 12px; display: grid; gap: 6px; }
-    .prod-title { font-weight: 600; }
-    .prod-desc { color: var(--muted); font-size: 14px; }
-    .prod-actions { margin-top: 2px; }
-    .prod-actions a { text-decoration: none; color: var(--brand); font-weight: 600; }
+  /* More floaty: long travel + gentle wave, end-to-end */
+  @keyframes floatPath {
+    0%   { top: 0;                  transform: translateX(0); }
+    20%  {                         transform: translateX(14px); }
+    40%  { top: 40%;               transform: translateX(-14px); }
+    60%  {                         transform: translateX(14px); }
+    80%  { top: 80%;               transform: translateX(-14px); }
+    100% { top: calc(100% - 70px); transform: translateX(0); }
+  }
+  .badge.gh{ animation: floatPath 8.5s ease-in-out infinite alternate; }
+  .badge.li{ animation: floatPath 10s ease-in-out .6s infinite alternate; }
 
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  .badge:hover{ filter:brightness(1.12) }
+  .badge:focus-visible{ outline:3px solid #9ec1ff; outline-offset:3px; }
 
-    footer { padding: 32px 0 40px; color: var(--muted); text-align: center; font-size: 14px; }
+  /* Divider */
+  .divider{
+    height:2px; background:var(--border);
+    margin:26px 0 0; border:0;
+  }
 
-    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 5px; padding: 10px 16px; border-radius: 10px; border: 1px solid var(--border); background: var(--panel); color: var(--text); text-decoration: none; box-shadow: var(--shadow); font-size: 15px; font-weight: 500; line-height: 1; vertical-align: middle; }
-    .btn:hover { transform: translateY(-2px); }
-  </style>
+  /* Academic section */
+  .section-title{font-size:26px; margin:0 0 8px}
+  .section-sub{color:var(--muted); margin:0 0 18px}
+  .cards{display:grid; grid-template-columns:repeat(3,1fr); gap:18px}
+  @media (max-width: 900px){ .cards{grid-template-columns:1fr} }
+  .card-min{
+    background:var(--panel); border:1px solid var(--border); border-radius:14px;
+    padding:18px; box-shadow:var(--shadow);
+  }
+  .card-min h3{margin:0 0 6px; font-size:18px}
+  .card-min p{margin:0; color:var(--muted); font-size:14px}
+  .card-min a{color:var(--brand); text-decoration:none}
+  .card-min a:hover{text-decoration:underline}
+
+  /* Enter / scroll animations */
+  .reveal{opacity:0;transform:translateY(16px)}
+  .reveal.show{opacity:1;transform:none;transition:opacity .7s ease, transform .7s ease}
+  .reveal-delayed{transition-delay:.15s}
+  .reveal-more{transition-delay:.3s}
+
+  .anchor { scroll-margin-top:80px; }
+</style>
 </head>
 <body>
-  <header class="hero wrap">
-    <h1 class="name">Ali Aghadadashi</h1>
-    <p class="subtitle">M.Sc in Energy Systems Engineering - Sharif University of Technology
-      
-Fields of Interest
-  - Energy Systems Modeling
-  - Artificial Intelligence / Optimization
-  - Stochastic Programming / Uncertainty Assessment
-  - Renewable Energies</p>
 
-    <div class="quick">
-      <a href="mailto:aliagadadashi@gmail.com" aria-label="Email Ali">
-        <strong>aliagadadashi@gmail.com</strong>
-        <span class="meta">Email</span>
-      </a>
-      <a href="https://scholar.google.com/citations?user=9zr1k8UAAAAJ&hl=en&oi=ao" rel="me">
-        <img src="GS.png" alt="Google Scholar" class="icon">
-        <strong>Google Scholar</strong>
-        <span class="meta">View Publications</span>
-      </a>
-      <a href="https://www.linkedin.com/in/ali-aghadadashi-1402241b9/" rel="me">
-        <img src="linkedin4.png" alt="LinkedIn" class="icon">
-        <strong>LinkedIn</strong>
-        <span class="meta">View Profile</span>
-      </a>
-      <a class="btn" href="https://drive.google.com/file/d/140lgJX1Gr4gt2ZfRKQl_jgO8XGs2rkmp/view?usp=sharing" target="_blank"><br>View / Download CV (PDF)</a>
-    </div>
-
-    <div class="block" onclick="openTab('academic')">
-      <h3>Academic Background</h3>
-      <p>M.Sc in Energy Systems Engineering - Sharif University of Technology <br><br>
-         Click to access: Publications, Projects, Research Experiences, Awards and Honors, Teaching Experiences, Graduate Courses, Software Skills</p>
-    </div>
-
-    <div class="block" onclick="openTab('industrial')">
-      <h3>Industrial Working Experiences</h3>
-      <p>In 3 years of managing the R&D team at SuperFrost Co., I have developed four cutting-edge commercial freezers and refrigerators, as well as one Python-based GUI to optimize the thermodynamic cycle of refrigeration systems.</p>
-    </div>
-
-    <!-- Academic Section Tabs -->
-    <div id="academic" class="tab-content">
-      <div class="tab-buttons">
-        <button class="active" onclick="switchSubTab(event, 'publications')">Publications</button>
-        <button onclick="switchSubTab(event, 'projects')">Projects</button>
-        <button onclick="switchSubTab(event, 'research')">Research Experiences</button>
-        <button onclick="switchSubTab(event, 'awards')">Awards & Honors</button>
-        <button onclick="switchSubTab(event, 'teaching')">Teaching Experiences</button>
-        <button onclick="switchSubTab(event, 'courses')">Graduate Courses</button>
-        <button onclick="switchSubTab(event, 'skills')">Software Skills</button>
+  <!-- NAV -->
+  <nav class="nav">
+    <div class="wrap">
+      <div class="brand">
+        <div class="logo"></div>
+        <span>Ali Aghadadashi</span>
       </div>
-
-      <div id="publications" class="sub-tab active">
-        <ol>
-          <li>
-            <strong>Aghadadashi, A.</strong>, Avami, A. (2024). <em>Water–land–food–human health nexus in bioenergy supply chain optimization under climatic constraints</em>. <em>Science of The Total Environment</em>, 957, 177572. 
-            <a href="https://doi.org/10.1016/j.scitotenv.2024.177572" target="_blank" rel="noopener" style="color: var(--brand)">https://doi.org/10.1016/j.scitotenv.2024.177572</a>
-          </li><br>
-          <li>
-            Danook, S. H., AL-bonsrulah, H. A., Raja, V., Kolivandi, M., <strong>Aghadadashi, A.</strong>, Al‑Bahrani, M. (2023). <em>Investigations of performance improvements on the evacuated tube solar collector with and without the incorporation of preheater through various engineering approaches</em>. <em>IET Renewable Power Generation</em>, 17(3), 563–578. 
-            <a href="https://doi.org/10.1049/rpg2.12615" target="_blank" rel="noopener" style="color: var(--brand)">https://doi.org/10.1049/rpg2.12615</a>
-          </li><br>
-          <li>
-            Mirzaee, S., <strong>Aghadadashi, A.</strong>, Balforoush, S., Shahbazi, A. (2021). <em>Future research of investment in biofuels with a scenario approach</em>. <em>The 5th International Congress of Agricultural Development, Natural Resources, Environment and Tourism of Iran</em>. (In Persian).
-          </li>
-        </ol>
-      </div>
-      <div id="projects" class="sub-tab" style="display:none">
-        <p>Details of research and academic projects conducted during postgraduate studies.</p>
-      </div>
-      <div id="research" class="sub-tab" style="display:none">
-        <p>Research topics, methodologies, collaborations, and outcomes.</p>
-      </div>
-      <div id="awards" class="sub-tab" style="display:none">
-        <p>Academic awards, honors, and recognitions achieved during education and research career.</p>
-      </div>
-      <div id="teaching" class="sub-tab" style="display:none">
-        <p>Courses taught and teaching assistant experience.</p>
-      </div>
-      <div id="courses" class="sub-tab" style="display:none">
-        <p>Graduate-level coursework and training relevant to energy systems and optimization.</p>
-      </div>
-      <div id="skills" class="sub-tab" style="display:none">
-        <p>Software and programming tools used in academic and research activities (MATLAB, GAMS, Python, Aspen Plus, etc.).</p>
+      <div class="menu">
+        <a href="#home">Home</a>
+        <a href="#academic">Academic Background</a>
+        <a href="#industrial">Industrial Working Experience</a>
+        <a href="#contact">Contact</a>
       </div>
     </div>
+  </nav>
 
-    <!-- Industrial Section Grid (2x2) -->
-    <div id="industrial" class="tab-content">
-      <div class="grid-2x2">
-        <div class="prod-card">
-          <div class="media"><img src="SF2150T-DM.jpg" alt="-18°C Upright Commercial Freezer (SF2150T)"></div>
-          <div class="prod-body">
-            <div class="prod-title">-18°C Upright Commercial Freezer (SF2150T)</div>
-            <div class="prod-desc">High-capacity upright design for reliable deep-freezing in commercial kitchens.</div>
-            <div class="prod-actions"><a href="https://drive.google.com/file/d/1vAS-aH8mmbiNNCbYuUNVtc72fT7IP3uR/view?usp=drive_link" target="_blank" rel="noopener">Read More →</a></div>
-          </div>
-        </div>
-        <div class="prod-card">
-          <div class="media"><img src="Polar-DM.jpg" alt="-22°C Counter Freezer (SCF2150P)"></div>
-          <div class="prod-body">
-            <div class="prod-title">-22°C Counter Freezer — 2 & 3 Doors (SCF2150P)</div>
-            <div class="prod-desc">Low-profile counter freezer with multi-door access for efficient line operations.</div>
-            <div class="prod-actions"><a href="https://drive.google.com/file/d/1p3GG8UlfA1MbTQPW6ZweG5ZDHCK38HCA/view?usp=drive_link" target="_blank" rel="noopener">Read More →</a></div>
-          </div>
-        </div>
-        <div class="prod-card">
-          <div class="media"><img src="Cold Plate - DM.jpg" alt="+3°C Cold Plates"></div>
-          <div class="prod-body">
-            <div class="prod-title">+3°C Cold Plates</div>
-            <div class="prod-desc">Chilled surface solution for prep/service lines with uniform temperature control.</div>
-            <div class="prod-actions"><a href="https://drive.google.com/file/d/1YqSozqKp1AinCFwWpG4MpmMCMwdZrx4n/view?usp=drive_link" target="_blank" rel="noopener">Read More →</a></div>
-          </div>
-        </div>
-        <div class="prod-card">
-          <div class="media"><img src="EL - DM.jpg" alt="+5°C Grill Refrigerator (4 & 6 drawers)"></div>
-          <div class="prod-body">
-            <div class="prod-title">+5°C Grill Refrigerator — 4 & 6 Drawers</div>
-            <div class="prod-desc">Heavy-duty refrigerated base for grill stations with flexible drawer options.</div>
-            <div class="prod-actions"><a href="https://drive.google.com/file/d/1f0iVkBpMN1MAQezaNpSa9oVKqjpfZCxm/view?usp=drive_link" target="_blank" rel="noopener">Read More →</a></div>
-          </div>
+  <!-- HERO -->
+  <header id="home" class="container">
+    <div class="card hero grid grid-2">
+      <div class="photo reveal">
+        <!-- Your image -->
+        <img src="agh.jpg" alt="Ali Aghadadashi" style="width:100%; height:auto; border-radius:12px; object-fit:cover;">
+
+        <!-- Floating badges track -->
+        <div class="badge-track" aria-hidden="false">
+          <!-- GitHub badge -->
+          <a class="badge gh" href="https://github.com/YOUR_GITHUB_USERNAME" target="_blank" rel="noopener" aria-label="GitHub profile">
+            <svg viewBox="0 0 16 16" aria-hidden="true">
+              <path d="M8 0C3.58 0 0 3.64 0 8.13c0 3.59 2.29 6.64 5.47 7.72.4.08.55-.18.55-.39 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.5-2.69-.96-.09-.24-.48-.96-.82-1.15-.28-.15-.68-.52-.01-.53.63-.01 1.08.59 1.23.84.72 1.21 1.87.87 2.33.66.07-.53.28-.87.51-1.07-1.78-.2-3.64-.91-3.64-4.04 0-.89.31-1.61.82-2.18-.08-.2-.36-1.02.08-2.12 0 0 .67-.22 2.2.83.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.06 2.2-.83 2.2-.83.44 1.1.16 1.92.08 2.12.51.57.82 1.29.82 2.18 0 3.14-1.87 3.83-3.65 4.03.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.47.55.39A8.02 8.02 0 0 0 16 8.13C16 3.64 12.42 0 8 0z"></path>
+            </svg>
+          </a>
+
+          <!-- LinkedIn badge -->
+          <a class="badge li" href="https://www.linkedin.com/in/ali-aghadadashi-1402241b9/" target="_blank" rel="noopener" aria-label="LinkedIn profile">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M20.45 20.45h-3.55v-5.6c0-1.34-.02-3.07-1.87-3.07-1.88 0-2.17 1.46-2.17 2.97v5.7H9.31V9.5h3.4v1.49h.05c.47-.9 1.62-1.85 3.33-1.85 3.56 0 4.22 2.34 4.22 5.39v5.92zM5.34 8.01c-1.14 0-2.06-.93-2.06-2.07a2.06 2.06 0 1 1 2.06 2.07zM7.11 20.45H3.57V9.5h3.54v10.95z"></path>
+            </svg>
+          </a>
         </div>
       </div>
+
+      <div>
+        <h1 class="title reveal">Ali Aghadadashi</h1>
+        <p class="subtitle reveal reveal-delayed">Founder • Researcher • Engineer</p>
+
+        <div class="meta-row reveal reveal-more">
+          <div><b>Education:</b> M.Sc. Energy Systems Engineering</div>
+          <div><b>Institute:</b> Sharif University of Technology</div>
+        </div>
+
+        <p class="lead" style="font-size:13px;">
+          I specialize in <b>optimization</b> and <b>artificial intelligence</b> for
+          <b>energy and thermal systems</b>, with a strong background in <b>climate change modeling</b>
+          and <b>renewable energy integration</b>. My research focuses on intelligent optimization
+          frameworks and decision-support tools that enhance the efficiency and sustainability of complex energy infrastructures.
+          <br><br>
+          As an avid programmer, I use <b>Python</b>, <b>Java</b>, and <b>C</b> to design and implement analytical models,
+          optimization algorithms, simulations, and engineering software. I developed a dedicated software tool to
+          <b>optimize the thermodynamics of refrigeration and freezer cycles</b>, and I also <b>3D-designed and manufactured hundreds of units</b>
+          across <b>four cutting-edge commercial freezers and refrigerators</b> — see the
+          <a href="#industrial" style="color:var(--brand); text-decoration:none;">Industrial Working Experience</a> section.
+        </p>
+      </div>
     </div>
+
+    <!-- SOLID DIVIDER BELOW INTRO -->
+    <hr class="divider">
   </header>
 
-  <footer>
-    <div class="wrap">© <span id="year"></span> Ali Aghadadashi. All rights reserved.</div>
-  </footer>
+  <!-- ACADEMIC BACKGROUND SECTION -->
+  <section id="academic" class="container" aria-label="Academic Background">
+    <h2 class="section-title reveal">Academic Background</h2>
+    <p class="section-sub reveal reveal-delayed">
+      Publications, projects, coursework, and research interests.
+    </p>
 
-  <script>
-    function openTab(id) {
-      const tab = document.getElementById(id);
-      document.querySelectorAll('.tab-content').forEach(tc => tc.classList.remove('active'));
-      tab.classList.add('active');
-      tab.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
+    <div class="cards">
+      <div class="card-min reveal">
+        <h3>Publications</h3>
+        <p>Peer-reviewed journal articles and conference papers. <a href="https://scholar.google.com/citations?user=9zr1k8UAAAAJ&hl=en" target="_blank" rel="noopener">View on Google Scholar →</a></p>
+      </div>
 
-    function switchSubTab(event, id) {
-      const container = event.target.closest('.tab-content');
-      container.querySelectorAll('.sub-tab').forEach(st => st.style.display = 'none');
-      container.querySelector(`#${id}`).style.display = 'block';
-      container.querySelectorAll('.tab-buttons button').forEach(btn => btn.classList.remove('active'));
-      event.target.classList.add('active');
-    }
+      <div class="card-min reveal reveal-delayed">
+        <h3>Projects</h3>
+        <p>Optimization & AI for energy systems, uncertainty modeling, and renewable integration.</p>
+      </div>
 
-    document.getElementById('year').textContent = new Date().getFullYear();
-  </script>
+      <div class="card-min reveal reveal-more">
+        <h3>Graduate Courses</h3>
+        <p>Optimization, stochastic programming, energy systems modeling, and advanced thermodynamics.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- link targets only (keep for future) -->
+  <div id="industrial" class="anchor"></div>
+  <div id="contact" class="anchor"></div>
+
+<script>
+  // Reveal on load + on scroll for text/sections
+  const els = document.querySelectorAll('.reveal');
+  const show = el => el.classList.add('show');
+  window.addEventListener('DOMContentLoaded', () => setTimeout(() => els.forEach(show), 50));
+  const io = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) show(e.target) }), {threshold: 0.12});
+  els.forEach(el => io.observe(el));
+</script>
 </body>
 </html>
