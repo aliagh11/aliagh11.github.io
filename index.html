@@ -8,15 +8,10 @@
 
 <style>
   :root{
-    --bg:#f6f7fb;
-    --ink:#1e1f23;
-    --muted:#667085;
-    --panel:#ffffff;
-    --brand:#3b6ff5;
-    --nav:#2c2c2c;
-    --border:#e5e7eb;
-    --shadow:0 10px 30px rgba(0,0,0,.10);
-    --radius:16px;
+    --bg:#f6f7fb; --ink:#1e1f23; --muted:#667085; --panel:#ffffff; --brand:#3b6ff5;
+    --nav:#2c2c2c; --border:#e5e7eb; --shadow:0 10px 30px rgba(0,0,0,.10);
+    --radius:16px; --glow1:#7aa5ff; --glow2:#1cbf83; --glow3:#a855f7; --accent:#0ea5e9;
+    --gold1:#f8d775; --gold2:#f3b33b; --gold3:#ffefbf; --ribbon:#111827;
   }
 
   *{box-sizing:border-box}
@@ -42,75 +37,163 @@
   .card{background:var(--panel);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow)}
   .hero{padding:28px}
   .photo{
-    position:relative; background:#dff3f0; border-radius:12px;
-    min-height:360px; display:flex; align-items:center; justify-content:center;
+    position:relative; background:#dff3f0; border-radius:12px; min-height:360px;
+    display:flex; align-items:center; justify-content:center;
     border:1px solid #cde3df; box-shadow:0 18px 40px rgba(58,107,98,.12); overflow:hidden;
   }
-  .photo span{color:#3a6b62;opacity:.8}
   .title{font-size:clamp(26px, 3.6vw, 44px);margin:0 0 6px}
   .subtitle{margin:0 0 18px;color:var(--muted);font-size:clamp(14px,2vw,18px)}
   .meta-row{display:flex;gap:18px;flex-wrap:wrap;margin:14px 0 18px}
   .meta-row b{color:#111}
   .lead{margin:0;color:#374151}
 
-  /* Floating vertical track for badges */
-  .badge-track{
-    position:absolute; top:10px; left:10px; height:calc(100% - 20px); width:72px; pointer-events:none;
-  }
-  .badge{
-    position:absolute; left:0;
-    width:60px; height:60px; border-radius:50%;
-    display:flex; align-items:center; justify-content:center;
-    text-decoration:none; pointer-events:auto;
-    filter: drop-shadow(0 10px 24px rgba(0,0,0,.25));
-    box-shadow:0 10px 24px rgba(0,0,0,.25), inset 0 0 0 1px rgba(255,255,255,.12);
-  }
-  .badge svg{width:28px; height:28px; fill:#fff}
-  .badge.gh{ background:#000; }
-  .badge.li{ background:#0A66C2; }
-
-  /* More floaty: long travel + gentle wave, end-to-end */
-  @keyframes floatPath {
-    0%   { top: 0;                  transform: translateX(0); }
-    20%  {                         transform: translateX(14px); }
-    40%  { top: 40%;               transform: translateX(-14px); }
-    60%  {                         transform: translateX(14px); }
-    80%  { top: 80%;               transform: translateX(-14px); }
-    100% { top: calc(100% - 70px); transform: translateX(0); }
-  }
-  .badge.gh{ animation: floatPath 8.5s ease-in-out infinite alternate; }
-  .badge.li{ animation: floatPath 10s ease-in-out .6s infinite alternate; }
-
-  .badge:hover{ filter:brightness(1.12) }
-  .badge:focus-visible{ outline:3px solid #9ec1ff; outline-offset:3px; }
+  /* Floating profile badges */
+  .badge-track{position:absolute;top:10px;left:10px;height:calc(100% - 20px);width:72px;pointer-events:none}
+  .badge{position:absolute;left:0;width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;pointer-events:auto;filter:drop-shadow(0 10px 24px rgba(0,0,0,.25));box-shadow:0 10px 24px rgba(0,0,0,.25), inset 0 0 0 1px rgba(255,255,255,.12)}
+  .badge svg{width:28px;height:28px;fill:#fff}
+  .badge.gh{background:#000} .badge.li{background:#0A66C2}
+  @keyframes floatPath{0%{top:0;transform:translateX(0)}20%{transform:translateX(14px)}40%{top:40%;transform:translateX(-14px)}60%{transform:translateX(14px)}80%{top:80%;transform:translateX(-14px)}100%{top:calc(100% - 70px);transform:translateX(0)}}
+  .badge.gh{animation:floatPath 8.5s ease-in-out infinite alternate}
+  .badge.li{animation:floatPath 10s ease-in-out .6s infinite alternate}
 
   /* Divider */
-  .divider{
-    height:2px; background:var(--border);
-    margin:26px 0 0; border:0;
-  }
+  .divider{height:2px;background:var(--border);margin:26px 0 0;border:0}
 
   /* Academic section */
-  .section-title{font-size:26px; margin:0 0 8px}
-  .section-sub{color:var(--muted); margin:0 0 18px}
-  .cards{display:grid; grid-template-columns:repeat(3,1fr); gap:18px}
-  @media (max-width: 900px){ .cards{grid-template-columns:1fr} }
+  .section-title{font-size:26px;margin:0 0 8px}
+  .section-sub{color:var(--muted);margin:0 0 18px}
+  .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+  @media (max-width:900px){.cards{grid-template-columns:1fr}}
+
+  /* 3D animated cards */
   .card-min{
-    background:var(--panel); border:1px solid var(--border); border-radius:14px;
-    padding:18px; box-shadow:var(--shadow);
+    position:relative;background:var(--panel);border:1px solid var(--border);border-radius:14px;padding:18px;box-shadow:var(--shadow);
+    transform-style:preserve-3d;transform:perspective(900px) rotateX(0) rotateY(0) translateZ(0);
+    transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease, filter .25s ease;
+    will-change:transform, box-shadow, filter;overflow:hidden;
+    animation:idleFloat 5.5s ease-in-out infinite, breathe 4.5s ease-in-out infinite;
   }
-  .card-min h3{margin:0 0 6px; font-size:18px}
-  .card-min p{margin:0; color:var(--muted); font-size:14px}
-  .card-min a{color:var(--brand); text-decoration:none}
-  .card-min a:hover{text-decoration:underline}
+  .cards .card-min:nth-child(2){animation-delay:.6s,1s}
+  .cards .card-min:nth-child(3){animation-delay:1.2s,1.6s}
+  .cards .card-min:nth-child(4){animation-delay:1.8s,2.2s}
+  .cards .card-min:nth-child(5){animation-delay:2.4s,2.8s}
+  .cards .card-min:nth-child(6){animation-delay:3s,3.4s}
+  .card-min::before{content:"";position:absolute;inset:-2px;border-radius:16px;padding:1px;background:conic-gradient(from 0deg,var(--glow1),var(--glow2),var(--glow3),var(--glow1));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;animation:spinGlow 6s linear infinite;pointer-events:none}
+  .card-min>.inner{position:relative;background:var(--panel);border-radius:12px;padding:2px}
+  .card-min:hover{transform:perspective(900px) rotateX(2deg) rotateY(-2.5deg) translateY(-8px) scale(1.02);box-shadow:0 22px 60px rgba(59,111,245,.25);filter:drop-shadow(0 10px 24px rgba(59,111,245,.15));border-color:rgba(0,0,0,.12)}
+  .card-min::after{content:"";position:absolute;inset:-2px -40%;background:linear-gradient(115deg,transparent 45%,rgba(255,255,255,.45) 50%,transparent 55%);transform:translateX(-120%);pointer-events:none}
+  .card-min:hover::after{animation:sheenMove .85s ease}
+  .card-min h3{margin:0 0 8px;font-size:18px}
+  .card-min p{margin:0;color:var(--muted);font-size:14px}
+  .card-min.clickable{cursor:pointer;user-select:none}
+  @keyframes idleFloat{0%{transform:perspective(900px) translateY(0)}50%{transform:perspective(900px) translateY(-7px)}100%{transform:perspective(900px) translateY(0)}}
+  @keyframes breathe{0%{box-shadow:var(--shadow)}50%{box-shadow:0 16px 48px rgba(59,111,245,.18)}100%{box-shadow:var(--shadow)}}
+  @keyframes sheenMove{to{transform:translateX(120%)}}
+  @keyframes spinGlow{to{transform:rotate(1turn)}}
 
-  /* Enter / scroll animations */
-  .reveal{opacity:0;transform:translateY(16px)}
-  .reveal.show{opacity:1;transform:none;transition:opacity .7s ease, transform .7s ease}
-  .reveal-delayed{transition-delay:.15s}
-  .reveal-more{transition-delay:.3s}
+  /* Modal (shared) */
+  .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.35);display:none;align-items:center;justify-content:center;z-index:50;backdrop-filter:blur(2px);animation:fadeIn .25s ease}
+  .modal{width:min(820px,92vw);max-height:min(78vh,880px);background:#fff;border:1px solid var(--border);border-radius:18px;box-shadow:0 30px 80px rgba(0,0,0,.35);transform:translateY(12px) scale(.98);opacity:0;overflow:hidden;animation:popIn .35s cubic-bezier(.2,.8,.2,1) forwards}
+  .modal-header{position:sticky;top:0;background:#fff;border-bottom:1px solid var(--border);padding:14px 16px;display:flex;align-items:center;justify-content:space-between}
+  .modal-title{margin:0;font-size:18px}
+  .modal-close{width:32px;height:32px;border-radius:999px;border:1px solid var(--border);background:#fff;display:grid;place-items:center;cursor:pointer}
+  .modal-close:hover{background:#f4f6fb}
+  .modal-body{padding:16px;overflow:auto}
+  @keyframes popIn{to{opacity:1;transform:translateY(0) scale(1)}} @keyframes fadeIn{from{opacity:0}to{opacity:1}}
 
-  .anchor { scroll-margin-top:80px; }
+  /* Publications list */
+  .pubs{margin:0;padding-left:18px}
+  .pubs li{margin:0 0 14px 0}
+  .pubs em{font-style:italic}
+  .pubs a{color:var(--brand);text-decoration:none}
+  .pubs a:hover{text-decoration:underline}
+
+  /* Education items */
+  .edu-wrap{display:grid;gap:18px}
+  .edu-item{display:grid;grid-template-columns:auto 1fr auto;gap:12px;padding:12px 10px;border:1px solid var(--border);border-radius:12px;background:#fff;animation:eduRise .45s ease both}
+  .edu-item:nth-child(2){animation-delay:.08s} .edu-item:nth-child(3){animation-delay:.16s}
+  @keyframes eduRise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+  .edu-logo{width:52px;height:52px;border-radius:50%;display:grid;place-items:center;overflow:hidden;background:radial-gradient(65% 65% at 30% 30%,#e8f1ff,#dceaff);border:1px solid #d9e3ff;box-shadow:0 6px 20px rgba(59,111,245,.18);transform:translateZ(0)}
+  .edu-logo img{width:100%;height:100%;object-fit:cover}
+  .edu-logo:hover{animation:spinLogo 1.2s ease}
+  @keyframes spinLogo{50%{transform:rotate(8deg) scale(1.06)}100%{transform:none}}
+  .edu-main{display:grid;gap:4px}
+  .edu-title{font-weight:700}
+  .edu-sub{color:#475569}
+  .edu-meta{text-align:right;white-space:nowrap;font-size:14px}
+  .edu-kicker{margin-top:4px;padding-left:64px;color:#0f766e;font-weight:600;display:flex;align-items:center;gap:8px}
+  .edu-kicker::before{content:"";width:10px;height:10px;border-radius:50%;background:conic-gradient(from 0deg,var(--accent),#22c55e,var(--accent));box-shadow:0 0 0 3px rgba(14,165,233,.15);animation:pulseDot 1.6s ease-in-out infinite}
+  @keyframes pulseDot{0%{transform:scale(1)}50%{transform:scale(1.25)}100%{transform:scale(1)}}
+
+  /* Awards & Honors styles */
+  .honors-wrap{position:relative}
+  .honors-head{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-weight:800}
+  .medal{width:36px;height:36px;border-radius:50%;background:radial-gradient(circle at 35% 30%,var(--gold3),var(--gold1) 40%,var(--gold2) 70%);border:1px solid #e6c15a;box-shadow:0 8px 24px rgba(243,179,59,.25),inset 0 0 0 1px #fff8;position:relative}
+  .medal::after{content:"★";position:absolute;inset:0;display:grid;place-items:center;color:#8a6116;font-size:16px;text-shadow:0 1px 0 #fff8}
+  .honors{list-style:none;padding:0;margin:10px 0 0 0;counter-reset:hon}
+  .honors li{position:relative;padding:14px 12px 14px 54px;border:1px solid var(--border);border-radius:12px;background:#fff;margin-bottom:12px;opacity:0;transform:translateY(8px) scale(.98);animation:honorIn .45s cubic-bezier(.2,.8,.2,1) forwards}
+  .honors li:nth-child(1){animation-delay:.05s} .honors li:nth-child(2){animation-delay:.16s} .honors li:nth-child(3){animation-delay:.27s}
+  .honors li::before{counter-increment:hon;content:counter(hon);position:absolute;left:10px;top:10px;width:32px;height:32px;border-radius:10px;display:grid;place-items:center;font-weight:900;color:#3b2e06;background:linear-gradient(135deg,var(--gold3),var(--gold1));border:1px solid #e6c15a;box-shadow:inset 0 0 0 1px #fff8,0 8px 18px rgba(0,0,0,.08)}
+  @keyframes honorIn{to{opacity:1;transform:none}}
+  .badge-line{display:flex;gap:8px;align-items:center;margin-top:6px;font-size:12px;color:#475569}
+  .badge-line .chip{padding:2px 8px;border:1px solid var(--border);border-radius:999px;background:#f8fafc;font-weight:600}
+  .count-up{font-variant-numeric:tabular-nums;font-weight:800}
+  .confetti{position:absolute;inset:0;pointer-events:none}
+
+  /* Teaching Experiences modal styles */
+  .teach-head{margin:2px 0 8px;font-weight:800;display:flex;align-items:center;gap:10px}
+  .teach-head .ribbon{width:18px;height:22px;background:linear-gradient(#111,#1f2937);border-radius:3px 3px 2px 2px;position:relative}
+  .teach-head .ribbon::after{content:"";position:absolute;bottom:-6px;left:0;right:0;margin:auto;width:0;height:0;border-left:9px solid transparent;border-right:9px solid transparent;border-top:6px solid var(--ribbon)}
+  .teach-list{list-style:none;padding:0;margin:0}
+  .teach-item{position:relative;border:1px solid var(--border);border-radius:12px;padding:12px;background:#fff;margin-bottom:12px;display:grid;grid-template-columns:1fr auto;gap:8px;opacity:0;transform:translateY(8px);animation:teachIn .45s ease forwards}
+  .teach-item:nth-child(1){animation-delay:.06s}.teach-item:nth-child(2){animation-delay:.14s}.teach-item:nth-child(3){animation-delay:.22s}.teach-item:nth-child(4){animation-delay:.30s}
+  @keyframes teachIn{to{opacity:1;transform:none}}
+  .teach-role{font-weight:700}
+  .teach-org{color:#475569}
+  .teach-prof{color:#334155;font-size:14px}
+  .teach-date{align-self:start;white-space:nowrap;font-size:12px;color:#fff;padding:6px 10px;border-radius:999px;background:linear-gradient(135deg,#111827,#374151);box-shadow:0 6px 14px rgba(0,0,0,.15)}
+
+  /* Graduate courses modal styles */
+  .courses-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media (max-width:700px){ .courses-grid{grid-template-columns:1fr} }
+  .course-item{display:flex;align-items:flex-start;gap:10px;border:1px solid var(--border);border-radius:12px;background:#fff;padding:10px 12px;opacity:0;transform:translateY(8px);animation:courseIn .45s ease forwards}
+  .course-item:nth-child(1){animation-delay:.05s} .course-item:nth-child(2){animation-delay:.12s}
+  .course-item:nth-child(3){animation-delay:.19s} .course-item:nth-child(4){animation-delay:.26s}
+  .course-item:nth-child(5){animation-delay:.33s} .course-item:nth-child(6){animation-delay:.40s}
+  .course-item:nth-child(7){animation-delay:.47s}
+  @keyframes courseIn{to{opacity:1;transform:none}}
+  .course-bullet{width:8px;height:8px;border-radius:50%;background:#0f172a;margin-top:7px;box-shadow:0 0 0 3px #e5e7eb}
+  .course-title{font-weight:600}
+  .course-note{color:#475569;font-size:14px}
+  .grade{margin-left:auto;white-space:nowrap;font-size:12px;color:#111;background:#f8fafc;border:1px solid var(--border);border-radius:999px;padding:4px 8px;font-weight:700}
+  .grade .den{color:#64748b;font-weight:600}
+  /* Reduce motion */
+  @media (prefers-reduced-motion: reduce){ .edu-item,.honors li,.teach-item,.course-item{animation:none !important} }
+
+  /* ===================== Industrial Working Experience (rectangular 2x2) ===================== */
+  .industrial-hr{height:4px;background:#e7f1ff;border:0;margin:28px 0}
+  .industrial-head{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+  .industrial-title{font-size:26px;margin:0}
+  .industrial-sub{color:#475569;margin:0}
+  .prod-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px} /* 1 2 / 3 4 */
+  @media (max-width:720px){.prod-grid{grid-template-columns:1fr}}
+
+  .prod-card{
+    position:relative; background:#fff; border:1px solid var(--border); border-radius:16px; overflow:hidden;
+    box-shadow:var(--shadow); cursor:pointer; transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  }
+  .prod-card:focus-visible{outline:3px solid #93c5fd; outline-offset:2px}
+  .prod-card:hover{transform:translateY(-8px) scale(1.01); box-shadow:0 22px 60px rgba(59,111,245,.22); border-color:#dbe7ff}
+  .prod-media{aspect-ratio:16/10;width:100%;display:block;overflow:hidden;background:#eef5ff}
+  .prod-media img{width:100%;height:100%;object-fit:cover}
+  .prod-body{padding:14px}
+  .prod-title{margin:0 0 6px;font-size:18px;font-weight:800}
+  .prod-desc{margin:0 0 10px;color:#616f86;font-size:14px}
+  .prod-link{display:inline-flex;align-items:center;gap:6px;font-weight:700;color:var(--brand);text-decoration:none}
+  .prod-link::after{content:"↗";font-weight:800;transition:transform .2s ease}
+  .prod-card:hover .prod-link::after{transform:translate(2px,-2px)}
+  .shine::before{content:"";position:absolute;inset:-2px -40%;background:linear-gradient(115deg,transparent 45%,rgba(255,255,255,.55) 50%,transparent 55%);transform:translateX(-120%);pointer-events:none}
+  .prod-card:hover.shine::before{animation:sheenMove .85s ease}
 </style>
 </head>
 <body>
@@ -118,10 +201,7 @@
   <!-- NAV -->
   <nav class="nav">
     <div class="wrap">
-      <div class="brand">
-        <div class="logo"></div>
-        <span>Ali Aghadadashi</span>
-      </div>
+      <div class="brand"><div class="logo"></div><span>Ali Aghadadashi</span></div>
       <div class="menu">
         <a href="#home">Home</a>
         <a href="#academic">Academic Background</a>
@@ -135,23 +215,13 @@
   <header id="home" class="container">
     <div class="card hero grid grid-2">
       <div class="photo reveal">
-        <!-- Your image -->
         <img src="agh.jpg" alt="Ali Aghadadashi" style="width:100%; height:auto; border-radius:12px; object-fit:cover;">
-
-        <!-- Floating badges track -->
         <div class="badge-track" aria-hidden="false">
-          <!-- GitHub badge -->
-          <a class="badge gh" href="https://github.com/YOUR_GITHUB_USERNAME" target="_blank" rel="noopener" aria-label="GitHub profile">
-            <svg viewBox="0 0 16 16" aria-hidden="true">
-              <path d="M8 0C3.58 0 0 3.64 0 8.13c0 3.59 2.29 6.64 5.47 7.72.4.08.55-.18.55-.39 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.5-2.69-.96-.09-.24-.48-.96-.82-1.15-.28-.15-.68-.52-.01-.53.63-.01 1.08.59 1.23.84.72 1.21 1.87.87 2.33.66.07-.53.28-.87.51-1.07-1.78-.2-3.64-.91-3.64-4.04 0-.89.31-1.61.82-2.18-.08-.2-.36-1.02.08-2.12 0 0 .67-.22 2.2.83.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.06 2.2-.83 2.2-.83.44 1.1.16 1.92.08 2.12.51.57.82 1.29.82 2.18 0 3.14-1.87 3.83-3.65 4.03.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.47.55.39A8.02 8.02 0 0 0 16 8.13C16 3.64 12.42 0 8 0z"></path>
-            </svg>
+          <a class="badge gh" href="https://github.com/aliagh11" target="_blank" rel="noopener" aria-label="GitHub profile">
+            <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 0C3.58 0 0 3.64 0 8.13c0 3.59 2.29 6.64 5.47 7.72.4.08.55-.18.55-.39 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.5-2.69-.96-.09-.24-.48-.96-.82-1.15-.28-.15-.68-.52-.01-.53.63-.01 1.08.59 1.23.84.72 1.21 1.87.87 2.33.66.07-.53.28-.87.51-1.07-1.78-.2-3.64-.91-3.64-4.04 0-.89.31-1.61.82-2.18-.08-.2-.36-1.02.08-2.12 0 0 .67-.22 2.2.83.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.06 2.2-.83 2.2-.83.44 1.1.16 1.92.08 2.12.51.57.82 1.29.82 2.18 0 3.14-1.87 3.83-3.65 4.03.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.47.55.39A8.02 8.02 0 0 0 16 8.13C16 3.64 12.42 0 8 0z"></path></svg>
           </a>
-
-          <!-- LinkedIn badge -->
           <a class="badge li" href="https://www.linkedin.com/in/ali-aghadadashi-1402241b9/" target="_blank" rel="noopener" aria-label="LinkedIn profile">
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M20.45 20.45h-3.55v-5.6c0-1.34-.02-3.07-1.87-3.07-1.88 0-2.17 1.46-2.17 2.97v5.7H9.31V9.5h3.4v1.49h.05c.47-.9 1.62-1.85 3.33-1.85 3.56 0 4.22 2.34 4.22 5.39v5.92zM5.34 8.01c-1.14 0-2.06-.93-2.06-2.07a2.06 2.06 0 1 1 2.06 2.07zM7.11 20.45H3.57V9.5h3.54v10.95z"></path>
-            </svg>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.55v-5.6c0-1.34-.02-3.07-1.87-3.07-1.88 0-2.17 1.46-2.17 2.97v5.7H9.31V9.5h3.4v1.49h.05c.47-.9 1.62-1.85 3.33-1.85 3.56 0  4.22 2.34 4.22 5.39v5.92zM5.34 8.01c-1.14 0-2.06-.93-2.06-2.07a2.06 2.06 0 1 1 2.06 2.07zM7.11 20.45H3.57V9.5h3.54v10.95z"></path></svg>
           </a>
         </div>
       </div>
@@ -159,67 +229,441 @@
       <div>
         <h1 class="title reveal">Ali Aghadadashi</h1>
         <p class="subtitle reveal reveal-delayed">Founder • Researcher • Engineer</p>
-
         <div class="meta-row reveal reveal-more">
           <div><b>Education:</b> M.Sc. Energy Systems Engineering</div>
           <div><b>Institute:</b> Sharif University of Technology</div>
         </div>
-
         <p class="lead" style="font-size:13px;">
           I specialize in <b>optimization</b> and <b>artificial intelligence</b> for
           <b>energy and thermal systems</b>, with a strong background in <b>climate change modeling</b>
-          and <b>renewable energy integration</b>. My research focuses on intelligent optimization
-          frameworks and decision-support tools that enhance the efficiency and sustainability of complex energy infrastructures.
+          and <b>renewable energy integration</b>. My research focuses on intelligent optimization frameworks and decision-support tools.
           <br><br>
-          As an avid programmer, I use <b>Python</b>, <b>Java</b>, and <b>C</b> to design and implement analytical models,
-          optimization algorithms, simulations, and engineering software. I developed a dedicated software tool to
-          <b>optimize the thermodynamics of refrigeration and freezer cycles</b>, and I also <b>3D-designed and manufactured hundreds of units</b>
-          across <b>four cutting-edge commercial freezers and refrigerators</b> — see the
+          I use <b>Python</b>, <b>Java</b>, <b>C</b>, and <b>GAMS</b> to build analytical models, simulations, and engineering software.
+          I developed a tool to <b>optimize the thermodynamics of refrigeration and freezer cycles</b>, and <b>3D-designed & manufactured hundreds of units</b>
+          across <b>four commercial freezers and refrigerators</b> — see the
           <a href="#industrial" style="color:var(--brand); text-decoration:none;">Industrial Working Experience</a> section.
         </p>
       </div>
     </div>
-
-    <!-- SOLID DIVIDER BELOW INTRO -->
     <hr class="divider">
   </header>
 
-  <!-- ACADEMIC BACKGROUND SECTION -->
+  <!-- ACADEMIC BACKGROUND -->
   <section id="academic" class="container" aria-label="Academic Background">
     <h2 class="section-title reveal">Academic Background</h2>
-    <p class="section-sub reveal reveal-delayed">
-      Publications, projects, coursework, and research interests.
-    </p>
+    <p class="section-sub reveal reveal-delayed">Publications, education, projects, honors, teaching, and coursework.</p>
 
     <div class="cards">
-      <div class="card-min reveal">
-        <h3>Publications</h3>
-        <p>Peer-reviewed journal articles and conference papers. <a href="https://scholar.google.com/citations?user=9zr1k8UAAAAJ&hl=en" target="_blank" rel="noopener">View on Google Scholar →</a></p>
+      <div class="card-min clickable reveal tilt" id="pubsCard" tabindex="0" aria-label="Open Publications">
+        <div class="inner"><h3>Publications</h3><p>Peer-reviewed journal articles and conference papers.</p></div>
       </div>
 
-      <div class="card-min reveal reveal-delayed">
-        <h3>Projects</h3>
-        <p>Optimization & AI for energy systems, uncertainty modeling, and renewable integration.</p>
+      <div class="card-min clickable reveal tilt" id="eduCard" tabindex="0" aria-label="Open Education">
+        <div class="inner"><h3>Education</h3><p>M.Sc. & B.Sc. degrees, thesis and supervisors, CGPAs.</p></div>
       </div>
 
-      <div class="card-min reveal reveal-more">
-        <h3>Graduate Courses</h3>
-        <p>Optimization, stochastic programming, energy systems modeling, and advanced thermodynamics.</p>
+      <div class="card-min reveal tilt">
+        <div class="inner"><h3>Projects</h3><p>Optimization & AI for energy systems, uncertainty modeling, renewables.</p></div>
+      </div>
+
+      <div class="card-min clickable reveal tilt" id="awardsCard" tabindex="0" aria-label="Open Awards and Honors">
+        <div class="inner"><h3>Awards & Honors</h3><p>Academic distinctions and research recognitions.</p></div>
+      </div>
+
+      <div class="card-min clickable reveal tilt" id="teachCard" tabindex="0" aria-label="Open Teaching Experiences">
+        <div class="inner"><h3>Teaching Experiences</h3><p>Courses instructed and teaching assistant roles.</p></div>
+      </div>
+
+      <!-- Graduate Courses (CLICKABLE NOW) -->
+      <div class="card-min clickable reveal tilt" id="gradCard" tabindex="0" aria-label="Open Graduate Courses">
+        <div class="inner"><h3>Graduate Courses</h3><p>Selected M.Sc. coursework and online grad courses.</p></div>
       </div>
     </div>
   </section>
 
-  <!-- link targets only (keep for future) -->
+  <!-- Publications Modal -->
+  <div class="modal-backdrop" id="pubsModal" role="dialog" aria-modal="true" aria-labelledby="pubsTitle">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title" id="pubsTitle">Publications</h3>
+        <button class="modal-close" id="pubsClose" aria-label="Close publications">✕</button>
+      </div>
+      <div class="modal-body">
+        <ol class="pubs">
+          <li>
+            <strong>Aghadadashi, A.</strong>, Avami, A. (2024). Water–land–food–human health nexus in bioenergy supply chain optimization under climatic constraints.
+            <em>Science of The Total Environment</em>, 957, 177572. <br>
+            <a href="https://doi.org/10.1016/j.scitotenv.2024.177572" target="_blank" rel="noopener">https://doi.org/10.1016/j.scitotenv.2024.177572</a>
+          </li>
+          <li>
+            Danook, S. H., AL-bonsrulah, H. A., Raja, V., Kolivandi, M., <strong>Aghadadashi, A.</strong>, Al-Bahrani, M. (2023).
+            Investigations of performance improvements on the evacuated tube solar collector with and without the incorporation of preheater through various engineering approaches.
+            <em>IET Renewable Power Generation</em>, 17(3), 563–578. <br>
+            <a href="https://doi.org/10.1049/rpg2.12615" target="_blank" rel="noopener">https://doi.org/10.1049/rpg2.12615</a>
+          </li>
+          <li>
+            Mirzaee, S., <strong>Aghadadashi, A.</strong>, Balforoush, S., Shahbazi, A. (2021).
+            Future research of investment in biofuels with a scenario approach.
+            <em>The 5th International Congress of Agricultural Development, Natural Resources, Environment and Tourism of Iran</em>. (In Persian).
+          </li>
+        </ol>
+      </div>
+    </div>
+  </div>
+
+  <!-- Education Modal -->
+  <div class="modal-backdrop" id="eduModal" role="dialog" aria-modal="true" aria-labelledby="eduTitle">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title" id="eduTitle">Education</h3>
+        <button class="modal-close" id="eduClose" aria-label="Close education">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="edu-wrap">
+          <div class="edu-item">
+            <div class="edu-logo">
+              <img src="Sharif University Logo.png" alt="Sharif University logo" onerror="this.replaceWith(Object.assign(document.createElement('span'),{textContent:'SUT'}));">
+            </div>
+            <div class="edu-main">
+              <div class="edu-title">M.Sc. in Energy Systems Engineering <span style="font-weight:600">(Energy & Environment)</span></div>
+              <div class="edu-sub">Sharif University of Technology, Tehran, Iran</div>
+              <div class="edu-sub"><strong>Thesis title:</strong> Biofuels Supply Chain Modeling and Optimization Considering Climatic Constraints</div>
+              <div class="edu-sub"><strong>Supervisor:</strong> Professor Akram Avami</div>
+            </div>
+            <div class="edu-meta">
+              <div>Sep. 2020 – Sep. 2022</div>
+              <div class="stat-chip"><span class="label">CGPA</span><span class="value">17.59</span><span class="denom">/20</span></div>
+            </div>
+          </div>
+
+          <div class="edu-item">
+            <div class="edu-logo">
+              <img src="Azarbaijan University Logo.png" alt="Azarbaijan Shahid Madani University logo" onerror="this.replaceWith(Object.assign(document.createElement('span'),{textContent:'ASMU'}));">
+            </div>
+            <div class="edu-main">
+              <div class="edu-title">B.Sc. in Chemical Engineering</div>
+              <div class="edu-sub">Azarbaijan Shahid Madani University, Tabriz, Iran</div>
+              <div class="edu-sub"><strong>Supervisor:</strong> Professor Maryam Hosseini</div>
+            </div>
+            <div class="edu-meta">
+              <div>Sep. 2016 – Sep. 2020</div>
+              <div class="stat-chip"><span class="label">CGPA</span><span class="value">17.25</span><span class="denom">/20</span></div>
+            </div>
+          </div>
+
+          <div class="edu-kicker">Ranked <strong>2<sup>nd</sup></strong> among <strong>45+</strong> B.Sc. students.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Awards & Honors Modal -->
+  <div class="modal-backdrop" id="awardsModal" role="dialog" aria-modal="true" aria-labelledby="awardsTitle">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title" id="awardsTitle">Awards & Honors</h3>
+        <button class="modal-close" id="awardsClose" aria-label="Close awards & honors">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="honors-wrap">
+          <canvas class="confetti" id="confetti"></canvas>
+          <div class="honors-head">
+            <div class="medal" aria-hidden="true"></div>
+            <div>Recognitions</div>
+          </div>
+          <ul class="honors" aria-label="Awards and honors list">
+            <li>
+              Ranked <strong>9<sup>th</sup></strong> in the <strong>25<sup>th</sup> Nationwide “Scientific Student Olympiad”</strong> in Chemical Engineering, Iran.
+              <div class="badge-line"><span class="chip">Olympiad</span><span class="chip">National</span></div>
+            </li>
+            <li>
+              Ranked <strong class="count-up" data-to="104">104</strong><sup>th</sup> in the <strong>Nationwide University Entrance Exam</strong> for M.Sc. degree in Chemical Engineering
+              (<span class="count-up" data-to="6000">6,000</span>+ participants).
+              <div class="badge-line"><span class="chip">M.Sc. Entrance</span><span class="chip">Among 6k+</span></div>
+            </li>
+            <li>
+              Ranked <strong>2<sup>nd</sup></strong> in the <strong>Bachelor’s Degree class</strong> (among <span class="count-up" data-to="45">45</span> students) with a CGPA of <strong>17.25/20.0</strong>.
+              <div class="badge-line"><span class="chip">B.Sc. Rank</span><span class="chip">CGPA 17.25 / 20</span></div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Teaching Experiences Modal -->
+  <div class="modal-backdrop" id="teachModal" role="dialog" aria-modal="true" aria-labelledby="teachTitle">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title" id="teachTitle">Teaching Experiences</h3>
+        <button class="modal-close" id="teachClose" aria-label="Close teaching experiences">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="teach-head">
+          <div class="ribbon" aria-hidden="true"></div>
+          <div>Assistantships</div>
+        </div>
+        <ul class="teach-list" aria-label="Teaching experiences">
+          <li class="teach-item">
+            <div>
+              <div class="teach-role">Teacher Assistant of Water and Energy Nexus</div>
+              <div class="teach-org">Sharif University of Technology (Energy Engineering Department)</div>
+              <div class="teach-prof">Professor: Dr. Akram Avami</div>
+            </div>
+            <div class="teach-date">Sep. 2022 – Feb. 2023</div>
+          </li>
+          <li class="teach-item">
+            <div>
+              <div class="teach-role">Teacher Assistant of Energy and Climate Change</div>
+              <div class="teach-org">Sharif University of Technology (Energy Engineering Department)</div>
+              <div class="teach-prof">Professor: Dr. Hossein Khajehpour</div>
+            </div>
+            <div class="teach-date">Sep. 2022 – Feb. 2023</div>
+          </li>
+          <li class="teach-item">
+            <div>
+              <div class="teach-role">Teacher Assistant of Water and Energy Nexus</div>
+              <div class="teach-org">Sharif University of Technology (Energy Engineering Department)</div>
+              <div class="teach-prof">Professor: Dr. Akram Avami</div>
+            </div>
+            <div class="teach-date">Feb. 2022 – Jul. 2022</div>
+          </li>
+          <li class="teach-item">
+            <div>
+              <div class="teach-role">Teacher Assistant of Heat Transfer</div>
+              <div class="teach-org">Azarbaijan Shahid Madani University (Chemical Engineering Department)</div>
+              <div class="teach-prof">Professor: Dr. Maryam Hosseini</div>
+            </div>
+            <div class="teach-date">Feb. 2018 – Jul. 2018</div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Graduate Courses Modal (NEW) -->
+  <div class="modal-backdrop" id="gradModal" role="dialog" aria-modal="true" aria-labelledby="gradTitle">
+    <div class="modal">
+      <div class="modal-header">
+        <h3 class="modal-title" id="gradTitle">Graduate Courses</h3>
+        <button class="modal-close" id="gradClose" aria-label="Close graduate courses">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="courses-grid" aria-label="Graduate courses list">
+          <!-- Left column -->
+          <div class="course-item">
+            <div class="course-bullet" aria-hidden="true"></div>
+            <div>
+              <div class="course-title">Advanced Mathematical Programming (Operations Research)</div>
+            </div>
+            <div class="grade">15.0<span class="den">/20.0</span></div>
+          </div>
+          <div class="course-item">
+            <div class="course-bullet"></div>
+            <div><div class="course-title">Energy Modeling</div></div>
+            <div class="grade">18.1<span class="den">/20.0</span></div>
+          </div>
+          <div class="course-item">
+            <div class="course-bullet"></div>
+            <div><div class="course-title">Optimization of Energy Flow</div></div>
+            <div class="grade">19.3<span class="den">/20.0</span></div>
+          </div>
+          <div class="course-item">
+            <div class="course-bullet"></div>
+            <div><div class="course-title">Energy and Environment</div></div>
+            <div class="grade">18.2<span class="den">/20.0</span></div>
+          </div>
+
+          <!-- Right column -->
+          <div class="course-item">
+            <div class="course-bullet"></div>
+            <div><div class="course-title">Principles of Economics</div></div>
+            <div class="grade">16.3<span class="den">/20.0</span></div>
+          </div>
+          <div class="course-item">
+            <div class="course-bullet"></div>
+            <div>
+              <div class="course-title">Machine Learning</div>
+              <div class="course-note">Online graduate course by Stanford, Prof. Andrew NG.</div>
+            </div>
+          </div>
+          <div class="course-item">
+            <div class="course-bullet"></div>
+            <div>
+              <div class="course-title">Deep Learning</div>
+              <div class="course-note">Online graduate course by DeepLearning.AI, Prof. Andrew NG.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- anchors -->
   <div id="industrial" class="anchor"></div>
+
+  <!-- ===================== Industrial Working Experience (rectangular 2x2) ===================== -->
+  <section class="container" aria-label="Industrial Working Experience">
+    <hr class="industrial-hr">
+    <div class="industrial-head">
+      <h2 class="industrial-title">Industrial Working Experience</h2>
+      <p class="industrial-sub">Discover our Commercial Freezer and Refrigerator designs, models, and production units.</p>
+    </div>
+
+    <div class="prod-grid" role="list">
+      <!-- 1. -22 C Counter Freezer -->
+      <a class="prod-card shine" href="https://drive.google.com/file/d/1p3GG8UlfA1MbTQPW6ZweG5ZDHCK38HCA/view?usp=drive_link" target="_blank" rel="noopener" role="listitem" aria-label="-22 °C Counter Freezer">
+        <div class="prod-media">
+          <img src="counter-freezer.jpg" alt="-22 °C Counter Freezer • render and production unit" style="object-position:center;">
+        </div>
+        <div class="prod-body">
+          <h3 class="prod-title">-22&nbsp;°C Counter Freezer</h3>
+          <p class="prod-desc">Low-temperature prep counter with integrated condensing unit and digital control — built for rapid chilling and durable daily use.</p>
+          <span class="prod-link">Read more about this product</span>
+        </div>
+      </a>
+
+      <!-- 2. +5 C Grill Refrigerator -->
+      <a class="prod-card shine" href="https://drive.google.com/file/d/1f0iVkBpMN1MAQezaNpSa9oVKqjpfZCxm/view?usp=drive_link" target="_blank" rel="noopener" role="listitem" aria-label="+5 °C Grill Refrigerator">
+        <div class="prod-media">
+          <img src="grill-refrigerator.jpg" alt="+5 °C Grill Refrigerator • render and production unit" style="object-position:center;">
+        </div>
+        <div class="prod-body">
+          <h3 class="prod-title">+5&nbsp;°C Grill Refrigerator</h3>
+          <p class="prod-desc">Service-line under-counter refrigerator designed to sit beneath grills — efficient airflow, easy-clean stainless body, quick access doors.</p>
+          <span class="prod-link">Read more about this product</span>
+        </div>
+      </a>
+
+      <!-- 3. +3 C Cold Plates -->
+      <a class="prod-card shine" href="https://drive.google.com/file/d/1YqSozqKp1AinCFwWpG4MpmMCMwdZrx4n/view?usp=drive_link" target="_blank" rel="noopener" role="listitem" aria-label="+3 °C Cold Plates">
+        <div class="prod-media">
+          <img src="cold-plate.jpg" alt="+3 °C Cold Plates • render and production unit" style="object-position:center;">
+        </div>
+        <div class="prod-body">
+          <h3 class="prod-title">+3&nbsp;°C Cold Plates</h3>
+          <p class="prod-desc">Chilled worktop with raised glass guard — uniform surface temperature for pastry, salad, and cold prep displays.</p>
+          <span class="prod-link">Read more about this product</span>
+        </div>
+      </a>
+
+      <!-- 4. -18 C Upright Freezer -->
+      <a class="prod-card shine" href="https://drive.google.com/file/d/1vAS-aH8mmbiNNCbYuUNVtc72fT7IP3uR/view?usp=drive_link" target="_blank" rel="noopener" role="listitem" aria-label="-18 °C Upright Freezer">
+        <div class="prod-media">
+          <!-- crop to fit rectangle nicely -->
+          <img src="upright-freezer.jpg" alt="-18 °C Upright Freezer • render and production unit" style="object-position:center 25%;">
+        </div>
+        <div class="prod-body">
+          <h3 class="prod-title">-18&nbsp;°C Upright Freezer</h3>
+          <p class="prod-desc">Tall storage cabinet for back-of-house freezing — insulated body, front digital controller, and top-mounted refrigeration.</p>
+          <span class="prod-link">Read more about this product</span>
+        </div>
+      </a>
+    </div>
+  </section>
+
   <div id="contact" class="anchor"></div>
 
 <script>
-  // Reveal on load + on scroll for text/sections
+  // reveal on load + scroll
   const els = document.querySelectorAll('.reveal');
   const show = el => el.classList.add('show');
   window.addEventListener('DOMContentLoaded', () => setTimeout(() => els.forEach(show), 50));
   const io = new IntersectionObserver(entries => entries.forEach(e => { if (e.isIntersecting) show(e.target) }), {threshold: 0.12});
   els.forEach(el => io.observe(el));
+
+  // Publications modal
+  const pubsCard = document.getElementById('pubsCard');
+  const pubsModal = document.getElementById('pubsModal');
+  const pubsClose = document.getElementById('pubsClose');
+  function openModalP(){ pubsModal.style.display='flex'; setTimeout(()=>pubsClose.focus(),50); document.body.style.overflow='hidden'; }
+  function closeModalP(){ pubsModal.style.display='none'; document.body.style.overflow=''; pubsCard.focus(); }
+  pubsCard.addEventListener('click', openModalP);
+  pubsCard.addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openModalP(); }});
+  pubsClose.addEventListener('click', closeModalP);
+  pubsModal.addEventListener('click', e => { if(e.target===pubsModal) closeModalP(); });
+  window.addEventListener('keydown', e => { if(e.key==='Escape'&&pubsModal.style.display==='flex') closeModalP(); });
+
+  // Education modal
+  const eduCard = document.getElementById('eduCard');
+  const eduModal = document.getElementById('eduModal');
+  const eduClose = document.getElementById('eduClose');
+  function openModalE(){ eduModal.style.display='flex'; setTimeout(()=>eduClose.focus(),50); document.body.style.overflow='hidden'; }
+  function closeModalE(){ eduModal.style.display='none'; document.body.style.overflow=''; eduCard.focus(); }
+  eduCard.addEventListener('click', openModalE);
+  eduCard.addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openModalE(); }});
+  eduClose.addEventListener('click', closeModalE);
+  eduModal.addEventListener('click', e => { if(e.target===eduModal) closeModalE(); });
+  window.addEventListener('keydown', e => { if(e.key==='Escape'&&eduModal.style.display==='flex') closeModalE(); });
+
+  // Awards & Honors modal
+  const awardsCard  = document.getElementById('awardsCard');
+  const awardsModal = document.getElementById('awardsModal');
+  const awardsClose = document.getElementById('awardsClose');
+  let confettiOnce = false;
+  function openModalA(){
+    awardsModal.style.display='flex';
+    setTimeout(()=>awardsClose.focus(),50);
+    document.body.style.overflow='hidden';
+    document.querySelectorAll('#awardsModal .count-up').forEach(el=>{
+      const target = parseInt(el.dataset.to,10)||0; const dur=900; const start=performance.now();
+      function tick(now){const t=Math.min(1,(now-start)/dur);const e=1-Math.pow(1-t,3);el.textContent=Math.round(target*e).toLocaleString(); if(t<1) requestAnimationFrame(tick);}
+      requestAnimationFrame(tick);
+    });
+    if(!confettiOnce){confettiOnce=true; burstConfetti();}
+  }
+  function closeModalA(){ awardsModal.style.display='none'; document.body.style.overflow=''; awardsCard.focus(); }
+  awardsCard.addEventListener('click', openModalA);
+  awardsCard.addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openModalA(); }});
+  awardsClose.addEventListener('click', closeModalA);
+  awardsModal.addEventListener('click', e => { if(e.target===awardsModal) closeModalA(); });
+  window.addEventListener('keydown', e => { if(e.key==='Escape'&&awardsModal.style.display==='flex') closeModalA(); });
+
+  // Teaching Experiences modal
+  const teachCard  = document.getElementById('teachCard');
+  const teachModal = document.getElementById('teachModal');
+  const teachClose = document.getElementById('teachClose');
+  function openModalT(){ teachModal.style.display='flex'; setTimeout(()=>teachClose.focus(),50); document.body.style.overflow='hidden'; }
+  function closeModalT(){ teachModal.style.display='none'; document.body.style.overflow=''; teachCard.focus(); }
+  teachCard.addEventListener('click', openModalT);
+  teachCard.addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openModalT(); }});
+  teachClose.addEventListener('click', closeModalT);
+  teachModal.addEventListener('click', e => { if(e.target===teachModal) closeModalT(); });
+  window.addEventListener('keydown', e => { if(e.key==='Escape'&&teachModal.style.display==='flex') closeModalT(); });
+
+  // Graduate Courses modal (NEW)
+  const gradCard  = document.getElementById('gradCard');
+  const gradModal = document.getElementById('gradModal');
+  const gradClose = document.getElementById('gradClose');
+  function openModalG(){ gradModal.style.display='flex'; setTimeout(()=>gradClose.focus(),50); document.body.style.overflow='hidden'; }
+  function closeModalG(){ gradModal.style.display='none'; document.body.style.overflow=''; gradCard.focus(); }
+  gradCard.addEventListener('click', openModalG);
+  gradCard.addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openModalG(); }});
+  gradClose.addEventListener('click', closeModalG);
+  gradModal.addEventListener('click', e => { if(e.target===gradModal) closeModalG(); });
+  window.addEventListener('keydown', e => { if(e.key==='Escape'&&gradModal.style.display==='flex') closeModalG(); });
+
+  // Confetti (awards)
+  function burstConfetti(){
+    const canvas = document.getElementById('confetti'); if(!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const parent = canvas.parentElement.getBoundingClientRect();
+    const DPR = Math.min(2, window.devicePixelRatio || 1);
+    canvas.width = parent.width*DPR; canvas.height=parent.height*DPR;
+    canvas.style.width=parent.width+'px'; canvas.style.height=parent.height+'px';
+    ctx.scale(DPR,DPR);
+    const pieces = Array.from({length:90}).map(()=>({x:parent.width/2,y:20,r:Math.random()*6+3,vx:(Math.random()-0.5)*5,vy:Math.random()*-2-2,g:0.12+Math.random()*0.08,a:1,ca:0.015+Math.random()*0.02,color:['#f59e0b','#ef4444','#22c55e','#3b82f6','#a855f7'][Math.floor(Math.random()*5)]}));
+    let t=0;(function anim(){t++;ctx.clearRect(0,0,parent.width,parent.height);pieces.forEach(p=>{p.vy+=p.g;p.x+=p.vx;p.y+=p.vy;p.a-=p.ca;ctx.globalAlpha=Math.max(0,p.a);ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=p.color;ctx.fill();});ctx.globalAlpha=1;if(t<160) requestAnimationFrame(anim); else ctx.clearRect(0,0,parent.width,parent.height);})();
+  }
+
+  // Tilt
+  document.querySelectorAll('.tilt, .clickable').forEach(card=>{
+    const damp=20;
+    function handleMove(e){const r=card.getBoundingClientRect(),cx=r.left+r.width/2,cy=r.top+r.height/2,dx=(e.clientX-cx)/r.width,dy=(e.clientY-cy)/r.height;card.style.transform=`perspective(900px) rotateX(${-dy*damp}deg) rotateY(${dx*damp}deg) translateY(-4px)`;}
+    function reset(){card.style.transform='perspective(900px) rotateX(0) rotateY(0) translateY(0)';}
+    card.addEventListener('mousemove',handleMove); card.addEventListener('mouseleave',reset);
+    card.addEventListener('mouseenter',()=>{card.style.transition='transform .12s ease'; setTimeout(()=>card.style.transition='transform .25s ease, box-shadow .25s ease, border-color .25s ease, filter .25s ease',150);});
+  });
 </script>
 </body>
 </html>
