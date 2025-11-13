@@ -124,7 +124,9 @@
   .edu-meta{text-align:right;white-space:nowrap;font-size:14px}
   .edu-kicker{margin-top:4px;padding-left:64px;color:#0f766e;font-weight:600;display:flex;align-items:center;gap:8px}
   .edu-kicker::before{content:"";width:10px;height:10px;border-radius:50%;background:conic-gradient(from 0deg,var(--accent),#22c55e,var(--accent));box-shadow:0 0 0 3px rgba(14,165,233,.15);animation:pulseDot 1.6s ease-in-out infinite}
-  @keyframes pulseDot{0%{transform:scale(1)}50%{transform:scale(1.25)}100%{transform:scale(1)}}
+  @keyframes pulseDot{0%{transform:scale(1)}50%{transform:scale(1.25)}100%{transform:scale(1)}
+
+  }
 
   /* Awards & Honors styles */
   .honors-wrap{position:relative}
@@ -248,6 +250,222 @@
   @keyframes welcomeGlow{
     0%,100%{box-shadow:0 8px 24px rgba(59,130,246,.16);}
     50%{box-shadow:0 18px 40px rgba(37,99,235,.30);}
+  }
+
+  /* ✉️ Contact section */
+  .contact-section{
+    margin:40px auto 52px;
+  }
+
+  .contact-shell{
+    position:relative;
+    max-width:760px;
+    margin:0 auto;
+  }
+
+  .contact-orbit{
+    position:absolute;
+    inset:-40px -10px;
+    background:radial-gradient(circle at 0% 0%,rgba(59,111,245,.18),transparent 55%),
+                radial-gradient(circle at 100% 0%,rgba(14,165,233,.18),transparent 55%),
+                radial-gradient(circle at 50% 120%,rgba(168,85,247,.20),transparent 60%);
+    filter:blur(18px);
+    opacity:.9;
+    pointer-events:none;
+    animation:contactGlow 7s ease-in-out infinite alternate;
+  }
+
+  .contact-card{
+    position:relative;
+    overflow:hidden;
+    border-radius:24px;
+    padding:22px 22px 20px;
+    background:radial-gradient(circle at 0 0,#0f172a,#020617 70%);
+    border:1px solid rgba(148,163,184,.6);
+    box-shadow:0 24px 60px rgba(15,23,42,.55);
+    color:#e5e7eb;
+  }
+
+  .contact-card::before{
+    content:"";
+    position:absolute;
+    inset:-2px;
+    border-radius:26px;
+    padding:1px;
+    background:conic-gradient(from 0deg,var(--glow1),var(--glow2),var(--glow3),var(--accent),var(--glow1));
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite:xor;
+    mask-composite:exclude;
+    opacity:.9;
+    animation:contactBorderSpin 10s linear infinite;
+    pointer-events:none;
+  }
+
+  .contact-pulse{
+    position:absolute;
+    width:140px;
+    height:140px;
+    border-radius:999px;
+    border:1px solid rgba(96,165,250,.5);
+    left:14%;
+    top:-40px;
+    opacity:.6;
+    animation:contactPulse 5s ease-out infinite;
+    pointer-events:none;
+  }
+
+  .contact-title-row{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:6px;
+  }
+
+  .contact-badge{
+    width:26px;
+    height:26px;
+    border-radius:999px;
+    display:grid;
+    place-items:center;
+    font-size:15px;
+    background:radial-gradient(circle at 30% 20%,#fef9c3,#facc15);
+    box-shadow:0 0 0 4px rgba(250,250,250,.06),
+               0 10px 26px rgba(0,0,0,.55);
+  }
+
+  .contact-title{
+    margin:0;
+    font-size:22px;
+    letter-spacing:.03em;
+  }
+
+  .contact-sub{
+    margin:2px 0 14px;
+    font-size:14px;
+    color:#cbd5f5;
+  }
+
+  .contact-items{
+    display:grid;
+    grid-template-columns:repeat(3,minmax(0,1fr));
+    gap:10px;
+  }
+
+  .contact-item{
+    position:relative;
+    border-radius:14px;
+    padding:10px 10px 9px;
+    background:rgba(15,23,42,.82);
+    border:1px solid rgba(148,163,184,.7);
+    display:flex;
+    flex-direction:column;
+    gap:3px;
+    text-decoration:none;
+    color:#e5e7eb;
+    font-size:13px;
+    overflow:hidden;
+    transition:transform .22s ease, box-shadow .22s ease, border-color .22s ease, background .22s ease;
+  }
+
+  .contact-item::before{
+    content:"";
+    position:absolute;
+    inset:-40%;
+    background:radial-gradient(circle at 0 0,rgba(56,189,248,.25),transparent 55%);
+    opacity:0;
+    transform:translate3d(-40%,0,0);
+    transition:opacity .35s ease, transform .35s ease;
+    pointer-events:none;
+  }
+
+  .contact-item:hover{
+    transform:translateY(-4px) scale(1.01);
+    box-shadow:0 18px 40px rgba(15,23,42,.9);
+    border-color:rgba(96,165,250,1);
+    background:rgba(15,23,42,.95);
+  }
+
+  .contact-item:hover::before{
+    opacity:1;
+    transform:translate3d(0,0,0);
+  }
+
+  .contact-label{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:.09em;
+    color:#9ca3af;
+  }
+
+  .contact-dot{
+    width:8px;
+    height:8px;
+    border-radius:999px;
+    background:linear-gradient(135deg,#22c55e,#a3e635);
+    box-shadow:0 0 0 3px rgba(34,197,94,.25);
+  }
+
+  .contact-icon{
+    width:18px;
+    height:18px;
+    border-radius:999px;
+    display:grid;
+    place-items:center;
+    font-size:11px;
+    background:rgba(15,23,42,.85);
+    border:1px solid rgba(148,163,184,.7);
+  }
+
+  .contact-value{
+    font-weight:600;
+    word-break:break-all;
+  }
+
+  .contact-note{
+    margin-top:10px;
+    font-size:11px;
+    color:#9ca3af;
+    display:flex;
+    align-items:center;
+    gap:6px;
+  }
+
+  .contact-note-pip{
+    width:7px;
+    height:7px;
+    border-radius:999px;
+    background:radial-gradient(circle at 30% 30%,#38bdf8,#818cf8);
+  }
+
+  @media (max-width:800px){
+    .contact-card{
+      padding:18px 14px 15px;
+      border-radius:20px;
+    }
+    .contact-items{
+      grid-template-columns:1fr;
+    }
+  }
+
+  @keyframes contactGlow{
+    0%{opacity:.7;transform:scale(1);}
+    50%{opacity:1;transform:scale(1.04) translateY(-4px);}
+    100%{opacity:.8;transform:scale(1.02);}
+  }
+
+  @keyframes contactBorderSpin{
+    to{transform:rotate(1turn);}
+  }
+
+  @keyframes contactPulse{
+    0%{transform:scale(.7);opacity:.7;}
+    50%{transform:scale(1.05);opacity:0;}
+    100%{transform:scale(1.25);opacity:0;}
   }
 
   /* Extra tweaks for very small screens */
@@ -658,6 +876,61 @@
   </section>
 
   <div id="contact" class="anchor"></div>
+
+  <!-- ✉️ Contact Section -->
+  <section class="container contact-section" aria-label="Contact">
+    <div class="contact-shell">
+      <div class="contact-orbit"></div>
+      <div class="contact-pulse"></div>
+
+      <div class="contact-card">
+        <div class="contact-title-row">
+          <div class="contact-badge">✉️</div>
+          <h2 class="contact-title">Let’s Build Something Together</h2>
+        </div>
+
+        <p class="contact-sub">
+          I’m available for collaborations, engineering roles, industrial refrigeration design, and research opportunities.
+        </p>
+
+        <div class="contact-items">
+
+          <!-- Email -->
+          <a class="contact-item" href="mailto:aliagadadashi@gmail.com">
+            <div class="contact-label">
+              <span class="contact-dot"></span>
+              <span>Email</span>
+            </div>
+            <div class="contact-value">aliagadadashi@gmail.com</div>
+          </a>
+
+          <!-- WhatsApp / Phone -->
+          <a class="contact-item" href="https://wa.me/989146902707" target="_blank" rel="noopener">
+            <div class="contact-label">
+              <span class="contact-icon">WA</span>
+              <span>Phone / WhatsApp</span>
+            </div>
+            <div class="contact-value">+98&nbsp;914&nbsp;690&nbsp;2707</div>
+          </a>
+
+          <!-- LinkedIn -->
+          <a class="contact-item" href="https://www.linkedin.com/in/ali-aghadadashi-1402241b9/" target="_blank" rel="noopener">
+            <div class="contact-label">
+              <span class="contact-icon">in</span>
+              <span>LinkedIn</span>
+            </div>
+            <div class="contact-value">linkedin.com/in/ali-aghadadashi-1402241b9</div>
+          </a>
+
+        </div>
+
+        <div class="contact-note">
+          <span class="contact-note-pip"></span>
+          Typically responds within 24 hours.
+        </div>
+      </div>
+    </div>
+  </section>
 
 <script>
   // reveal on load + scroll
