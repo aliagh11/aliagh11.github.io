@@ -86,7 +86,8 @@
   .card-min h3{margin:0 0 8px;font-size:18px}
   .card-min p{margin:0;color:var(--muted);font-size:14px}
   .card-min.clickable{cursor:pointer;user-select:none}
-  @keyframes idleFloat{0%{transform:perspective(900px) translateY(0)}50%{transform:perspective(900px) translateY(-7px)}100%{transform:perspective(900px) translateY(0)}}
+  @keyframes idleFloat{0%{transform:perspective(900px) translateY(0)}50%{transform:perspective(900px) translateY(-7px)}100%{transform:perspective(900px) translateY(0)}
+  }
   @keyframes breathe{0%{box-shadow:var(--shadow)}50%{box-shadow:0 16px 48px rgba(59,111,245,.18)}100%{box-shadow:var(--shadow)}}
   @keyframes sheenMove{to{transform:translateX(120%)}}
   @keyframes spinGlow{to{transform:rotate(1turn)}}
@@ -179,13 +180,24 @@
   @media (max-width:720px){.prod-grid{grid-template-columns:1fr}}
 
   .prod-card{
-    position:relative; background:#fff; border:1px solid var(--border); border-radius:16px; overflow:hidden;
-    box-shadow:var(--shadow); cursor:pointer; transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
-  }
+  position:relative; background:#fff; border:1px solid var(--border); border-radius:16px; overflow:hidden;
+  box-shadow:var(--shadow); cursor:pointer; transition:transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  color:inherit;
+  text-decoration:none;
+}
+
+  .prod-card:link,
+.prod-card:visited,
+.prod-card:hover,
+.prod-card:active{
+  color:inherit;
+  text-decoration:none;
+}
+
   .prod-card:focus-visible{outline:3px solid #93c5fd; outline-offset:2px}
   .prod-card:hover{transform:translateY(-8px) scale(1.01); box-shadow:0 22px 60px rgba(59,111,245,.22); border-color:#dbe7ff}
   .prod-media{aspect-ratio:16/10;width:100%;display:block;overflow:hidden;background:#eef5ff}
-  .prod-media img{width:100%;height:100%;object-fit:cover}
+  .prod-media img{width:100%;height:100%;object-fit:contain}
   .prod-body{padding:14px}
   .prod-title{margin:0 0 6px;font-size:18px;font-weight:800}
   .prod-desc{margin:0 0 10px;color:#616f86;font-size:14px}
@@ -194,6 +206,72 @@
   .prod-card:hover .prod-link::after{transform:translate(2px,-2px)}
   .shine::before{content:"";position:absolute;inset:-2px -40%;background:linear-gradient(115deg,transparent 45%,rgba(255,255,255,.55) 50%,transparent 55%);transform:translateX(-120%);pointer-events:none}
   .prod-card:hover.shine::before{animation:sheenMove .85s ease}
+
+  /* ❄️ Industrial welcome sentence animation (ADDED) */
+  .industrial-welcome{
+    margin:4px 0 24px;
+    padding:10px 18px;
+    border-radius:999px;
+    background:linear-gradient(90deg,#e0f2ff,#f5f9ff,#e0f2ff);
+    border:1px solid #bfdbfe;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    box-shadow:0 10px 30px rgba(59,130,246,.12);
+    animation:welcomeFloat .9s ease-out both, welcomeGlow 4s ease-in-out infinite;
+  }
+  .industrial-welcome-text{
+    font-size:15px;
+    font-weight:600;
+    letter-spacing:.03em;
+    text-transform:none;
+    background:linear-gradient(120deg,#2563eb,#0ea5e9);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    white-space:normal;
+    text-align:center;
+  }
+  .industrial-welcome-text::before,
+  .industrial-welcome-text::after{
+    content:"❄️";
+    font-size:16px;
+    filter:drop-shadow(0 0 4px rgba(59,130,246,.55));
+  }
+  @keyframes welcomeFloat{
+    from{opacity:0;transform:translateY(10px) scale(.97);}
+    to{opacity:1;transform:translateY(0) scale(1);}
+  }
+  @keyframes welcomeGlow{
+    0%,100%{box-shadow:0 8px 24px rgba(59,130,246,.16);}
+    50%{box-shadow:0 18px 40px rgba(37,99,235,.30);}
+  }
+
+  /* Extra tweaks for very small screens */
+  @media (max-width: 600px){
+    .container{
+      padding: 20px 14px;
+    }
+
+    .photo{
+      min-height: 260px; /* smaller hero on phone */
+    }
+
+    .prod-grid{
+      grid-template-columns: 1fr; /* force single column earlier */
+    }
+
+    .prod-title{
+      font-size: 16px;
+    }
+
+    .prod-desc{
+      font-size: 13px;
+    }
+  }
 </style>
 </head>
 <body>
@@ -507,18 +585,27 @@
     <hr class="industrial-hr">
     <div class="industrial-head">
       <h2 class="industrial-title">Industrial Working Experience</h2>
-      <p class="industrial-sub">Discover our Commercial Freezer and Refrigerator designs, models, and production units.</p>
+    </div>
+
+    <!-- ❄️ Animated welcome sentence just above the 4 cards (ADDED) -->
+    <div class="industrial-welcome">
+      <span class="industrial-welcome-text">
+        Discover Our Commercial Freezer and Refrigerators Models, Designs, and manufactured units
+      </span>
     </div>
 
     <div class="prod-grid" role="list">
       <!-- 1. -22 C Counter Freezer -->
-      <a class="prod-card shine" href="https://drive.google.com/file/d/1p3GG8UlfA1MbTQPW6ZweG5ZDHCK38HCA/view?usp=drive_link" target="_blank" rel="noopener" role="listitem" aria-label="-22 °C Counter Freezer">
+      <a class="prod-card shine small" href="https://drive.google.com/file/d/1p3GG8UlfA1MbTQPW6ZweG5ZDHCK38HCA/view?usp=drive_link" target="_blank" rel="noopener" role="listitem" aria-label="-22 °C Counter Freezer">
         <div class="prod-media">
           <img src="counter-freezer.jpg" alt="-22 °C Counter Freezer • render and production unit" style="object-position:center;">
         </div>
         <div class="prod-body">
           <h3 class="prod-title">-22&nbsp;°C Counter Freezer</h3>
-          <p class="prod-desc">Low-temperature prep counter with integrated condensing unit and digital control — built for rapid chilling and durable daily use.</p>
+          • Nominal operating temperature: down to −22&nbsp;°C<br>
+          • High density insulation<br>
+          • Sizes: 1500, 1600, 2000, and 2150 mm<br><br>
+
           <span class="prod-link">Read more about this product</span>
         </div>
       </a>
@@ -530,7 +617,9 @@
         </div>
         <div class="prod-body">
           <h3 class="prod-title">+5&nbsp;°C Grill Refrigerator</h3>
-          <p class="prod-desc">Service-line under-counter refrigerator designed to sit beneath grills — efficient airflow, easy-clean stainless body, quick access doors.</p>
+          • Complete stainless steel design<br>
+          • Costumized evaporator design for efficient cooling<br>
+          • Sizes: 1200 and 1600 mm<br><br>
           <span class="prod-link">Read more about this product</span>
         </div>
       </a>
@@ -542,7 +631,10 @@
         </div>
         <div class="prod-body">
           <h3 class="prod-title">+3&nbsp;°C Cold Plates</h3>
-          <p class="prod-desc">Chilled worktop with raised glass guard — uniform surface temperature for pastry, salad, and cold prep displays.</p>
+          • Open area cooling surface<br>
+          • Removable controller Box<br>
+          • Sizes: 1600 and 2000 mm<br><br>
+
           <span class="prod-link">Read more about this product</span>
         </div>
       </a>
@@ -555,7 +647,10 @@
         </div>
         <div class="prod-body">
           <h3 class="prod-title">-18&nbsp;°C Upright Freezer</h3>
-          <p class="prod-desc">Tall storage cabinet for back-of-house freezing — insulated body, front digital controller, and top-mounted refrigeration.</p>
+          • Improved Cooling Capacity<br>
+          • New thermodynamics cycle for improving efficiency<br>
+          • High gross volume for storage<br><br>
+
           <span class="prod-link">Read more about this product</span>
         </div>
       </a>
