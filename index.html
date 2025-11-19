@@ -47,6 +47,60 @@
   .meta-row b{color:#111}
   .lead{margin:0;color:#374151}
 
+  /* 🔻 Download CV button (ADDED) */
+  .download-cv-wrapper{
+    margin-top:16px;
+    margin-left: 150px;
+  }
+  .download-cv-btn{
+    display:inline-block;
+    padding:10px 22px;
+    border-radius:999px; /* rounded fillets */
+    background:#ef4444;  /* red */
+    color:#fff;
+    font-size:13px;
+    font-weight:700;
+    text-decoration:none;
+    letter-spacing:.03em;
+    text-transform:uppercase;
+    box-shadow:0 12px 30px rgba(248,113,113,.35);
+    border:1px solid rgba(127,29,29,.85);
+    position:relative;
+    overflow:hidden;
+    opacity:0;
+    transform:translateY(10px) scale(.97);
+    animation:cvFadeUp .7s ease-out .4s forwards;
+  }
+  .download-cv-btn::after{
+    content:"";
+    position:absolute;
+    inset:-40%;
+    background:linear-gradient(120deg,rgba(255,255,255,.25),transparent 55%);
+    transform:translateX(-120%);
+  }
+  .download-cv-btn:hover::after{
+    animation:cvSheen .7s ease;
+  }
+  .download-cv-btn:hover{
+    transform:translateY(-1px) scale(1.01);
+    box-shadow:0 16px 40px rgba(248,113,113,.45);
+  }
+  .download-cv-btn:active{
+    transform:translateY(0) scale(.99);
+    box-shadow:0 8px 20px rgba(127,29,29,.55);
+  }
+  @keyframes cvFadeUp{
+    to{
+      opacity:1;
+      transform:translateY(0) scale(1);
+    }
+  }
+  @keyframes cvSheen{
+    to{
+      transform:translateX(120%);
+    }
+  }
+
   /* Floating profile badges */
   .badge-track{position:absolute;top:10px;left:10px;height:calc(100% - 20px);width:72px;pointer-events:none}
   .badge{position:absolute;left:0;width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;pointer-events:auto;filter:drop-shadow(0 10px 24px rgba(0,0,0,.25));box-shadow:0 10px 24px rgba(0,0,0,.25), inset 0 0 0 1px rgba(255,255,255,.12)}
@@ -539,6 +593,18 @@
           across <b>four commercial freezers and refrigerators</b> — see the
           <a href="#industrial" style="color:var(--brand); text-decoration:none;">Industrial Working Experience</a> section.
         </p>
+
+        <!-- 🔻 Download CV button placed directly under the text (ADDED) -->
+        <div class="download-cv-wrapper">
+          <a
+            href="https://drive.google.com/file/d/140lgJX1Gr4gt2ZfRKQl_jgO8XGs2rkmp/view?usp=drive_link"
+            target="_blank"
+            rel="noopener"
+            class="download-cv-btn"
+          >
+            Download CV
+          </a>
+        </div>
       </div>
     </div>
     <hr class="divider">
