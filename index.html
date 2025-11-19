@@ -45,7 +45,7 @@
   .subtitle{margin:0 0 18px;color:var(--muted);font-size:clamp(14px,2vw,18px)}
   .meta-row{display:flex;gap:18px;flex-wrap:wrap;margin:14px 0 18px}
   .meta-row b{color:#111}
-  .lead{margin:0;color:#374151}
+  .lead{margin:0;color:0x374151}
 
   /* 🔻 Download CV button (ADDED) */
   .download-cv-wrapper{
@@ -262,6 +262,71 @@
   .prod-card:hover .prod-link::after{transform:translate(2px,-2px)}
   .shine::before{content:"";position:absolute;inset:-2px -40%;background:linear-gradient(115deg,transparent 45%,rgba(255,255,255,.55) 50%,transparent 55%);transform:translateX(-120%);pointer-events:none}
   .prod-card:hover.shine::before{animation:sheenMove .85s ease}
+
+  /* SuperFrost Cooling Pack software card (NEW) */
+  .prod-card-scp{
+    margin-top:24px;
+    grid-column:1 / -1;
+    max-width: 850px;      /* << reduce overall width */
+    margin-left:auto;      /* center horizontally */
+    margin-right:auto;     /* center horizontally */
+  }
+  .scp-gallery{
+    position:relative;
+    aspect-ratio:16/9;
+    width:100%;
+    overflow:hidden;
+    background:#eef5ff;
+  }
+  .scp-viewport{
+    position:relative;
+    width:100%;
+    height:100%;
+  }
+  .scp-slide{
+    position:absolute;
+    inset:0;
+    opacity:0;
+    transition:opacity .35s ease;
+    display:flex;
+  }
+  .scp-slide img{
+    width:100%;
+    height:100%;
+    padding: 1px;          /* inner margin for SCP images */
+  }
+  .scp-slide-active{
+    opacity:1;
+  }
+  .scp-nav{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    border:none;
+    background:rgba(15,23,42,.65);
+    color:#fff;
+    width:32px;
+    height:32px;
+    border-radius:999px;
+    display:grid;
+    place-items:center;
+    font-size:18px;
+    cursor:pointer;
+    box-shadow:0 8px 20px rgba(15,23,42,.55);
+  }
+  .scp-nav:hover{
+    background:rgba(15,23,42,.85);
+  }
+  .scp-prev{
+    left:10px;
+  }
+  .scp-next{
+    right:10px;
+  }
+  .scp-nav:focus-visible{
+    outline:2px solid #93c5fd;
+    outline-offset:2px;
+  }
 
   /* ❄️ Industrial welcome sentence animation (ADDED) */
   .industrial-welcome{
@@ -938,6 +1003,48 @@
           <span class="prod-link">Read more about this product</span>
         </div>
       </a>
+
+      <!-- 5. SuperFrost Cooling Pack Software (with image carousel) -->
+      <a class="prod-card shine prod-card-scp"
+         href="https://drive.google.com/file/d/1eOITg0L_n1MYT7PdA6bWWa2ZQOKYhXKv/view?usp=drive_link"
+         target="_blank"
+         rel="noopener"
+         role="listitem"
+         aria-label="SuperFrost Cooling Pack software">
+        <div class="prod-media scp-gallery">
+          <button type="button" class="scp-nav scp-prev" aria-label="Previous SCP image">‹</button>
+          <div class="scp-viewport">
+            <div class="scp-slide scp-slide-active">
+              <img src="SCP-1.jpeg" alt="SuperFrost Cooling Pack welcome screen">
+            </div>
+            <div class="scp-slide">
+              <img src="SCP-2.jpeg" alt="SuperFrost Cooling Pack thermodynamic analysis interface">
+            </div>
+            <div class="scp-slide">
+              <img src="SCP-3.jpeg" alt="SuperFrost Cooling Pack P-h diagram module">
+            </div>
+            <div class="scp-slide">
+              <img src="SCP-4.jpeg" alt="SuperFrost Cooling Pack reporting and results view">
+            </div>
+          </div>
+          <button type="button" class="scp-nav scp-next" aria-label="Next SCP image">›</button>
+        </div>
+        <div class="prod-body">
+          <h3 class="prod-title">SuperFrost Cooling Pack (SCP) Software</h3>
+          <p class="prod-desc">
+            <b>SuperFrost Cooling Pack</b> is a dedicated tool for the
+            <b>thermodynamic analysis of cooling systems</b>. It is
+            developed for <b>CR&amp;Ni Co.</b> by <b>Fanavaran Sharif</b>
+            with a <b>user-friendly interface</b> inspired by practical
+            engineering workflows. SCP includes modules such as
+            <b>Thermodynamic Analysis</b>, <b>P–h diagrams</b>, and
+            cooling-cycle evaluation tools. The current release is
+            <b>Version 1.0 – Spring 2023</b>, supporting the design and
+            optimization of commercial refrigeration and freezer systems.
+          </p>
+          <span class="prod-link">Open SCP software documentation</span>
+        </div>
+      </a>
     </div>
   </section>
 
@@ -1089,6 +1196,29 @@
     const pieces = Array.from({length:90}).map(()=>({x:parent.width/2,y:20,r:Math.random()*6+3,vx:(Math.random()-0.5)*5,vy:Math.random()*-2-2,g:0.12+Math.random()*0.08,a:1,ca:0.015+Math.random()*0.02,color:['#f59e0b','#ef4444','#22c55e','#3b82f6','#a855f7'][Math.floor(Math.random()*5)]}));
     let t=0;(function anim(){t++;ctx.clearRect(0,0,parent.width,parent.height);pieces.forEach(p=>{p.vy+=p.g;p.x+=p.vx;p.y+=p.vy;p.a-=p.ca;ctx.globalAlpha=Math.max(0,p.a);ctx.beginPath();ctx.arc(p.x,p.y,p.r,0,Math.PI*2);ctx.fillStyle=p.color;ctx.fill();});ctx.globalAlpha=1;if(t<160) requestAnimationFrame(anim); else ctx.clearRect(0,0,parent.width,parent.height);})();
   }
+
+  // SuperFrost Cooling Pack image carousel
+  (function(){
+    const slides = Array.from(document.querySelectorAll('.scp-slide'));
+    const prevBtn = document.querySelector('.scp-prev');
+    const nextBtn = document.querySelector('.scp-next');
+    if (!slides.length || !prevBtn || !nextBtn) return;
+    let index = 0;
+    function show(i){
+      index = (i + slides.length) % slides.length;
+      slides.forEach((s, idx) => s.classList.toggle('scp-slide-active', idx === index));
+    }
+    prevBtn.addEventListener('click', e => {
+      e.preventDefault();
+      e.stopPropagation();
+      show(index - 1);
+    });
+    nextBtn.addEventListener('click', e => {
+      e.preventDefault();
+      e.stopPropagation();
+      show(index + 1);
+    });
+  })();
 
   // Tilt
   document.querySelectorAll('.tilt, .clickable').forEach(card=>{
