@@ -200,7 +200,7 @@
   /* Teaching Experiences modal styles */
   .teach-head{margin:2px 0 8px;font-weight:800;display:flex;align-items:center;gap:10px}
   .teach-head .ribbon{width:18px;height:22px;background:linear-gradient(#111,#1f2937);border-radius:3px 3px 2px 2px;position:relative}
-  .teach-head .ribbon::after{content:"";position:absolute;bottom:-6px;left:0;right:0;margin:auto;width:0;height:0;border-left:9px solid transparent;border-right:9px solid transparent;border-top:6px solid var(--ribbon)}
+  .teach-head .ribbon::after{content:"";position:absolute;bottom:-6px;left:0;right:0;margin:auto;width:0;height:0;border-left:99px solid transparent;border-right:9px solid transparent;border-top:6px solid var(--ribbon)}
   .teach-list{list-style:none;padding:0;margin:0}
   .teach-item{position:relative;border:1px solid var(--border);border-radius:12px;padding:12px;background:#fff;margin-bottom:12px;display:grid;grid-template-columns:1fr auto;gap:8px;opacity:0;transform:translateY(8px);animation:teachIn .45s ease forwards}
   .teach-item:nth-child(1){animation-delay:.06s}.teach-item:nth-child(2){animation-delay:.14s}.teach-item:nth-child(3){animation-delay:.22s}.teach-item:nth-child(4){animation-delay:.30s}
@@ -269,23 +269,6 @@
     max-width: 850px;
     margin-left:auto;
     margin-right:auto;
-  }
-  
-  /* CFD Simulations Gallery (NEW) */
-  .sim-gallery{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2px;
-    background: #1e1f23;
-  }
-  .sim-gallery img{
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    aspect-ratio: 4/3;
-  }
-  @media (max-width: 600px){
-    .sim-gallery { grid-template-columns: repeat(2, 1fr); }
   }
 
   /* SuperFrost Cooling Pack software card */
@@ -973,13 +956,8 @@
     
     <div class="prod-grid" role="list">
       <a class="prod-card shine prod-card-wide" href="airflow-simulations.pdf" target="_blank" rel="noopener" role="listitem" aria-label="CFD Airflow Simulations">
-        <div class="prod-media sim-gallery">
-          <img src="sim-1.jpg" alt="Cyclone velocity streamline simulation">
-          <img src="sim-2.jpg" alt="Cyclone velocity contour map">
-          <img src="sim-3.jpg" alt="Venturi pipe airflow simulation">
-          <img src="sim-4.jpg" alt="Centrifugal blower flow simulation">
-          <img src="sim-5.jpg" alt="Blower velocity contour simulation">
-          <img src="sim-6.jpg" alt="Blower detailed streamline mapping">
+        <div class="prod-media">
+          <img src="simulation.png" alt="Computational Fluid Dynamics (CFD) Airflow Simulations" style="object-position:center;">
         </div>
         <div class="prod-body">
           <h3 class="prod-title">Computational Fluid Dynamics (CFD) Simulations</h3>
