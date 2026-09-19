@@ -47,60 +47,6 @@
   .meta-row b{color:#111}
   .lead{margin:0;color:0x374151}
 
-  /* 🔻 Download CV button */
-  .download-cv-wrapper{
-    margin-top:16px;
-    margin-left: 150px;
-  }
-  .download-cv-btn{
-    display:inline-block;
-    padding:10px 22px;
-    border-radius:999px; /* rounded fillets */
-    background:#ef4444;  /* red */
-    color:#fff;
-    font-size:13px;
-    font-weight:700;
-    text-decoration:none;
-    letter-spacing:.03em;
-    text-transform:uppercase;
-    box-shadow:0 12px 30px rgba(248,113,113,.35);
-    border:1px solid rgba(127,29,29,.85);
-    position:relative;
-    overflow:hidden;
-    opacity:0;
-    transform:translateY(10px) scale(.97);
-    animation:cvFadeUp .7s ease-out .4s forwards;
-  }
-  .download-cv-btn::after{
-    content:"";
-    position:absolute;
-    inset:-40%;
-    background:linear-gradient(120deg,rgba(255,255,255,.25),transparent 55%);
-    transform:translateX(-120%);
-  }
-  .download-cv-btn:hover::after{
-    animation:cvSheen .7s ease;
-  }
-  .download-cv-btn:hover{
-    transform:translateY(-1px) scale(1.01);
-    box-shadow:0 16px 40px rgba(248,113,113,.45);
-  }
-  .download-cv-btn:active{
-    transform:translateY(0) scale(.99);
-    box-shadow:0 8px 20px rgba(127,29,29,.55);
-  }
-  @keyframes cvFadeUp{
-    to{
-      opacity:1;
-      transform:translateY(0) scale(1);
-    }
-  }
-  @keyframes cvSheen{
-    to{
-      transform:translateX(120%);
-    }
-  }
-
   /* Floating profile badges */
   .badge-track{position:absolute;top:10px;left:10px;height:calc(100% - 20px);width:72px;pointer-events:none}
   .badge{position:absolute;left:0;width:60px;height:60px;border-radius:50%;display:flex;align-items:center;justify-content:center;text-decoration:none;pointer-events:auto;filter:drop-shadow(0 10px 24px rgba(0,0,0,.25));box-shadow:0 10px 24px rgba(0,0,0,.25), inset 0 0 0 1px rgba(255,255,255,.12)}
@@ -633,20 +579,9 @@
           <div><b>Institute:</b> Sharif University of Technology</div>
         </div>
         <p class="lead" style="font-size:13px;">
-          I am a multidisciplinary Energy Systems Engineer with an M.Sc. from Sharif University of Technology. My work bridges the gap between mechanical engineering and computer science, focusing on three core areas:   Mechanical Design & Simulation: Designing, simulating (CFD), and manufacturing commercial refrigeration systems and industrial equipment.   Programming & Optimization: Leveraging Artificial Intelligence, Python, and physics-informed neural networks to build custom thermodynamic analysis software and optimize complex engineering systems.   Academic Research: Exploring sustainable energy solutions, including bioenergy supply chains and the water-land-food-human health nexus.
+          I am a multidisciplinary Energy Systems Engineer with an M.Sc. from Sharif University of Technology. My work bridges the gap between mechanical engineering and computer science, focusing on three core areas:<br><br>Mechanical Design & Simulation: Designing, simulating (CFD), and manufacturing commercial refrigeration systems and industrial equipment.<br><br>Programming & Optimization: Leveraging Artificial Intelligence, Python, and physics-informed neural networks to build custom thermodynamic analysis software and optimize complex engineering systems.<br><br>Academic Research: Exploring sustainable energy solutions, including bioenergy supply chains and the water-land-food-human health nexus.
         </p>
 
-        <!-- 🔻 Download CV button -->
-        <div class="download-cv-wrapper">
-          <a
-            href="https://drive.google.com/file/d/140lgJX1Gr4gt2ZfRKQl_jgO8XGs2rkmp/view?usp=drive_link"
-            target="_blank"
-            rel="noopener"
-            class="download-cv-btn"
-          >
-            Download CV
-          </a>
-        </div>
       </div>
     </div>
     <hr class="divider">
@@ -914,7 +849,7 @@
 
     <div class="prod-grid" role="list">
       <!-- 1. Cyclone -->
-      <a class="prod-card shine" href="cyclone-specs.pdf" target="_blank" rel="noopener" role="listitem" aria-label="Industrial Dust Collector Cyclone">
+      <a class="prod-card shine" href="https://drive.google.com/file/d/1NoWcCOgRb8SNBmvei-m5ayis0-xpS8xe/view?usp=drive_link" target="_blank" rel="noopener" role="listitem" aria-label="Industrial Dust Collector Cyclone">
         <div class="prod-media">
           <img src="Cyclone.jpg" alt="Industrial Dust Collector Cyclone" style="object-position:center;">
         </div>
@@ -928,7 +863,7 @@
       </a>
 
       <!-- 2. Dust Blower -->
-      <a class="prod-card shine" href="dust-blower-specs.pdf" target="_blank" rel="noopener" role="listitem" aria-label="Industrial Dust Blower Equipments">
+      <a class="prod-card shine" href="https://drive.google.com/file/d/1Ts9PDUkg1nxfyfyO3GAix4FFL6C0au0A/view?usp=sharing" target="_blank" rel="noopener" role="listitem" aria-label="Industrial Dust Blower Equipments">
         <div class="prod-media">
           <img src="dust-blower.png" alt="Industrial Dust Blower" style="object-position:center;">
         </div>
@@ -948,7 +883,7 @@
     </div>
     
     <div class="prod-grid" role="list">
-      <a class="prod-card shine prod-card-wide" href="airflow-simulations.pdf" target="_blank" rel="noopener" role="listitem" aria-label="CFD Airflow Simulations">
+      <div class="prod-card shine prod-card-wide" role="listitem" aria-label="CFD Airflow Simulations">
         <div class="prod-media">
           <img src="Simulations.png" alt="Computational Fluid Dynamics (CFD) Airflow Simulations" style="object-position:center;">
         </div>
@@ -957,9 +892,8 @@
           <p class="prod-desc">
             Advanced 3D airflow and velocity streamline simulations applied to industrial equipment. Utilizing CFD analysis tools like ANSYS, we meticulously map velocity contours, track pressure drops, and evaluate complex flow trajectories within cyclone separators and centrifugal dust blowers. These crucial steps allow us to optimize aerodynamic structures, reduce turbulence, and maximize physical operational efficiency prior to the manufacturing stage.
           </p>
-          <span class="prod-link">Download simulation reports</span>
         </div>
-      </a>
+      </div>
     </div>
   </section>
 
